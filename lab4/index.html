@@ -1,0 +1,48 @@
+public ImmutableList<T> remove(T item){
+    36         List<T> newList=new ArrayList<T>(this.list);
+    37         for(int i=0;i<newList.size();i++){
+    38             if(newList.get(i)==item){
+    39                 newList.remove(i);
+    40                 break;
+    41             }
+    42         }
+    43         return new ImmutableList<T>(newList);
+    44     }
+    45
+    46
+    47     public ImmutableList<T> limit(int size){
+    48         List<T> newList=new ArrayList<T>();
+    49         if(size<0)
+    50             throw new IllegalArgumentException("limit size < 0");
+    51         for(int i=0; i<size;i++){
+    52
+    53             if(i==this.list.size())
+    54                 break;
+    55
+    56             newList.add(this.list.get(i));
+    57         }
+    58         return new ImmutableList<T>(newList);
+    59     }
+    60
+    61     @Override
+    62     public boolean equals(ImmutableListConnection to pe102 closed by remote host.
+   Connection to pe102 closed.ew ArrayList<T>(this.list);
+   zikang98@sunfire0:~[41]$ `new ArrayList<K>(another);
+    65         if(another instanceof T){
+    66             if(list1.size()==list2.size()){
+    67                 for(int i=0;i<list1.size();i++){
+    68                     if(list1.get(i)!=list2.get(i))
+    69                         return false;
+    70                 }
+    71             }
+    72         }
+    73
+    74
+    75
+    76     }
+    77     @Override
+    78     public String toString(){
+    79         return this.list.toString();
+    80     }
+    81
+    82 }
