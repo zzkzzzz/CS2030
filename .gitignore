@@ -1,0 +1,7 @@
+# Mac directory index file
+.DS_Store
+
+# Vs code configuration folder
+.vscode/
+
+.class
