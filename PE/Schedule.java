@@ -8,20 +8,25 @@ public class Schedule {
         this.list = new ArrayList<Classes>();
     }
 
-    public List<Classes> add(Classes cla) {
+    Schedule(List<Classes> list) {
+        this.list = list;
+    }
+
+    public Schedule add(Classes cla) {
         List<Classes> newList = new ArrayList<Classes>(this.list);
         for (int i = 0; i < newList.size(); i++) {
             if (newList.get(i).clashWith(cla)) {
-                return newList;
+                return this;
             }
         }
         newList.add(cla);
-        return newList;
+        return new Schedule(newList);
     }
 
     @Override
     public String toString() {
         List<Classes> newList = new ArrayList<Classes>(this.list);
+        newList.sort(new ClassComparator());
         String result = "";
         for (int i = 0; i < newList.size(); i++) {
             result = result.concat(newList.get(i).toString()).concat("\n");
@@ -29,5 +34,4 @@ public class Schedule {
 
         return result;
     }
-
 }
