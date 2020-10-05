@@ -5,7 +5,7 @@ public class Tutorial extends Classes {
 
     @Override
     public String toString() {
-        return String.format("%s L%d @ %s [%s] %d--%d", this.getmodCode(), this.getClassID(), this.getVenueID(),
+        return String.format("%s T%d @ %s [%s] %d--%d", this.getmodCode(), this.getClassID(), this.getVenueID(),
                 this.getIns(), this.getStartTime(), this.getStartTime() + 1);
     }
 }
