@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Schedule {
+public class Schedule implements Iterable<Classes> {
     private final List<Classes> list;
 
     Schedule() {
@@ -10,6 +11,10 @@ public class Schedule {
 
     Schedule(List<Classes> list) {
         this.list = list;
+    }
+
+    public List<Classes> getScheduleList() {
+        return new ArrayList<Classes>(this.list);
     }
 
     public Schedule add(Classes cla) {
@@ -33,5 +38,10 @@ public class Schedule {
         }
 
         return result;
+    }
+
+    @Override
+    public Iterator<Classes> iterator() {
+        return this.list.iterator();
     }
 }
