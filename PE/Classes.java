@@ -4,13 +4,15 @@ abstract class Classes {
     private final String venueID;
     private final int startTime;
     private final Instructor ins;
+    private final String type;
 
-    Classes(String modCode, int classID, String venueID, Instructor ins, int startTime) {
+    Classes(String modCode, int classID, String venueID, Instructor ins, int startTime, String type) {
         this.modCode = modCode;
         this.classID = classID;
         this.venueID = venueID;
         this.startTime = startTime;
         this.ins = ins;
+        this.type = type;
     }
 
     public int getClassID() {
@@ -31,6 +33,10 @@ abstract class Classes {
 
     public int getStartTime() {
         return startTime;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public boolean hasSameModule(Classes cla) {
@@ -57,30 +63,43 @@ abstract class Classes {
         }
     }
 
-    public boolean clashWith(Classes cla) {
-        int startTime1 = this.getStartTime();
-        int startTime2 = cla.getStartTime();
-        String mod1 = this.getmodCode();
-        String mod2 = cla.getmodCode();
-        String v1 = this.getVenueID();
-        String v2 = cla.getVenueID();
+    public boolean hasOverlappingTime(Classes cla) {
 
-        if (startTime1 == startTime2 && v1 == v1) {
-            return true;
-        }
-
-        if (cla instanceof Lecture) {
-            if (mod1 == mod2) {
-                if (Math.abs(startTime1 - startTime2) < 2) {
-                    return true;
-                } else {
-                    return false;
+        if (this.type.equals(cla.getType())) {
+            if (this.type.equals("Lecture")) {
+                return Math.abs(cla.getStartTime() - this.getStartTime()) < 2;
+            }
+            if (this.type.equals("Tutorial")) {
+                return Math.abs(cla.getStartTime() - this.getStartTime()) < 1;
+            }
+        } else {
+            if (Math.abs(cla.getStartTime() - this.getStartTime()) < 2) {
+                if (this.type.equals("Lecture")) {
+                    return this.getStartTime() <= cla.getStartTime();
+                } else if (cla.type.equals("Lecture")) {
+                    return cla.getStartTime() <= this.getStartTime();
                 }
             }
         }
 
         return false;
+    }
 
+    public boolean clashWith(Classes cla) {
+
+        if (this.hasOverlappingTime(cla)) {
+            // no two classes can have overlapping slots and same venue OR same instructor
+            if (this.hasSameInstructor(cla) || this.hasSameVenue(cla))
+                return true;
+            // no two lecture classes can have overlapping time slots
+            if (this.type.equals(cla.getType()) && this.type.equals("Lecture") && this.hasSameModule(cla))
+                return true;
+            // a lecture of a module cannot clash with a tutorial of the same modul
+            if (!this.type.equals(cla.getType()) && this.hasSameModule(cla))
+                return true;
+        }
+
+        return false;
     }
 
 }

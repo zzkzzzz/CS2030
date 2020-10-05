@@ -1,9 +1,7 @@
 public class Lecture extends Classes {
     Lecture(String modCode, int classID, String venueID, Instructor ins, int startTime) {
-        super(modCode, classID, venueID, ins, startTime);
+        super(modCode, classID, venueID, ins, startTime, "Lecture");
     }
-
-   
 
     @Override
     public String toString() {
