@@ -1,35 +1,21 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class GapBetweenLectures extends Constraint {
 
     @Override
     public boolean test(Schedule s) {
-        HashMap<String, List<Classes>> venueMap = new HashMap<String, List<Classes>>();
-        for (Classes cla : s) {
-            if (cla.getType().equals("Lecture")) {
-                List<Classes> classes = venueMap.get(cla.getVenueID());
-                if (classes == null) {
-                    classes = new ArrayList<Classes>();
-                } else {
-                    if (!this.hasTimeGap(cla, classes)) {
+        for (Classes cla1 : s) {
+            if (cla1.getType().equals("Lecture")) {
+                for (Classes cla2 : s) {
+                    if (cla2.getType().equals("Lecture") && !cla1.clashWith(cla2) && cla1.hasSameVenue(cla2)
+                            && !this.hasTimeGap(cla1, cla2)) {
                         return false;
                     }
                 }
-                classes.add(cla);
-                venueMap.put(cla.getVenueID(), classes);
             }
         }
         return true;
     }
 
-    private boolean hasTimeGap(Classes cla1, List<Classes> list) {
-        for (Classes cla2 : list) {
-            if (Math.abs(cla1.getStartTime() - cla2.getStartTime()) < 1) {
-                return false;
-            }
-        }
-        return true;
+    private boolean hasTimeGap(Classes cla1, Classes cla2) {
+        return Math.abs(cla1.getStartTime() - cla2.getStartTime()) >= 3;
     }
 }
