@@ -128,7 +128,7 @@ public class ImmutableList<T> {
 			}
 		}
 
-		return false;å
+		return false;
 
 	}
 
