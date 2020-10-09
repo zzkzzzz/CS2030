@@ -1,0 +1,969 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />
+<title>CodeCrunch</title>
+<!-- START NUS Includes-->
+<script type="text/javascript" src="/nus/nussearch.js"></script>
+<link rel="stylesheet" type="text/css" href="/nus/nusbase.css" media="screen, print, projection, handheld" />
+<link rel="stylesheet" type="text/css" href="/nus/nusmenu.css" media="screen, print, projection, handheld" />
+<link rel="stylesheet" type="text/css" href="/nus/nusscreen.css" media="screen, projection, print" />
+<link href="/nus/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link rel="apple-touch-icon" href="/nus/blank.png"/>
+<!-- END NUS Includes -->
+<script type="text/javascript" src="/js/ajax.js"></script>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.pager.js"></script>
+<!--<script type="text/javascript" src="/js/folding.js"></script>-->
+<script type="text/javascript" src="/js/jquery.watermark.min.js"></script>
+<script type="text/javascript">
+            function enterPressButton(field, button) {
+                $(field).keypress(function(e){if(e.which==13)$(button).trigger("click");});
+            }
+</script>
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/tablesorter/jquery.tablesorter.css" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<!--<script type="text/javascript" src="js/folding.js"></script>-->
+<script type="text/javascript" src="js/jquery.rating.js"></script>
+<script type="text/javascript" src="js/behaviour.js"></script>
+<script type="text/javascript" src="js/textarea_maxlen.js"></script>
+<script type="text/javascript" src="js/jquery.timer.js"></script>
+
+<script type="text/javascript" src="plupload/js/plupload.full.min.js"></script>
+
+<link rel="stylesheet" href="css/jquery.rating.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/tagcloud.css" type="text/css" />
+<link rel="stylesheet" href="css/jquery-ui-1.7.2.custom.css" type="text/css" />
+
+<link rel="stylesheet" href="plupload/js/jquery_ui_plupload/css/jquery.ui.plupload.css" type="text/css" />
+
+</head>
+
+<body>
+<!-- START NUS-Header -->
+
+<!-- NUS Header -->
+<div id="nusheader" class="nusbody">
+<div class="nuslogodiv">
+<a href="http://www.nus.edu.sg/">
+<img class="nuslogo" src="/nus/soclogo.png" alt="" />
+</a>
+</div>
+<div id="nuspointermenu">
+<ul>
+<li><a href="http://exchange.nus.edu.sg/"><span style="text-transform:none">NUS WebMail</span></a></li>
+<li><a href="https://ivle.nus.edu.sg/lms/default.aspx">ivle</a></li>
+<li><a href="http://www.lib.nus.edu.sg/">library</a></li>
+<li><a href="http://www.nus.edu.sg/campusmap/" >maps</a></li>
+<!--<li><a href="https://aces01.nus.edu.sg/CoE/jsp/coeMain.jsp">calendar</a></li>-->
+<!--<li><a href="/sitemap">sitemap</a></li>-->
+<!--<li><a href="#">a-z index</a></li>-->
+<!--<li><a href="/contact">contact</a></li>-->
+<li><a href="#" id="rightcorner">&nbsp;</a></li>
+</ul>
+<br style="clear: left" />
+</div>
+<div id="searchform">
+<script src="/nus/nussearch.js" type="text/javascript"></script>
+<form id="frmSearch" onsubmit="evalSearch();return false" action=""><div>
+<a href="http://www.nus.edu.sg/search/" style="text-decoration:none; font-size:11px; font-weight:bold; color:#666666">Search </a>
+<input id="txtKeyword" type="text" value="search for..." onfocus="value=''" class="equal" size="18" />
+in
+<select id="SearchMenu" name="SearchMenu">
+<option selected="selected" value="0">NUS Websites</option>
+<option value="1">Internet</option>
+<option value="2">Staff Directory</option>
+<option value="3">Advanced Search</option>
+</select>
+<input class="equal" id="Go" src="/nus/go.png" type="image" />
+</div></form>
+</div>
+</div>
+
+<!-- NUS Local-Navigation --><!--
+<div id="nusmenu" class="nusbody"><div id="nusmenu_l"><div id="nusmenu_r">
+<ul>
+  <li><a href="http://www.comp.nus.edu.sg/index.html">Home</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/about.html">About Us</a></li>
+  <li><a class="drop" href="javascript:;">Departments</a>
+    <ul>
+      <li><a href="http://www.comp.nus.edu.sg/cs" >Computer Science</a></li>
+      <li><a href="http://www.comp.nus.edu.sg/is/" >Information Systems</a></li>
+    </ul>
+  </li>
+  <li><a href="http://www.comp.nus.edu.sg/undergraduates" >Undergraduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/graduates" >Graduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/research" >Research</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/entrepreneurship" >Entrepreneurship</a></li>
+  <li><a href="http://www.stmi.nus.edu.sg" >Executive Education</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/external_relations" >External Relations</a></li>
+</ul>
+</div></div></div>
+-->
+
+<!-- NUS Inner-Title -->
+<div id="nustitle" class="nusbody"><div id="nustitle_l"><div id="nustitle_r">
+              <h1 id="site-name">
+                <a href="/" title="Home" rel="home">CodeCrunch</a>
+              </h1>
+</div></div></div>
+
+<!-- END NUS-Header -->
+
+<div id="banner">
+        <div id="topmenu">
+        <div id="login">
+                Logged in as: <strong>e0426047</strong>
+                </div>
+                <div style="display: block;"><ul>
+                                        <li><a href="index.php" >Home</a></li>
+                                                    <li><a href="course_viewall.php" >Courses</a></li>
+                                                                <li><a href="tutorial_viewall.php" >Tutorials</a></li>
+                                                                <li><a href="task_viewall.php" >Tasks</a></li>
+                                                                <li><a href="tutorial_browser.php" >Browse Tutorials</a></li>
+                                                                <li><a href="user_viewsubmissions.php" >My Submissions</a></li>
+                                                                <li><a href="tools.php
+" >Tools</a></li>
+                                                <li><a href="logout_process.php" >Logout</a></li>
+                            </ul></div>
+        </div>
+</div>
+<div id="container">
+<div id="outer">
+<div id="inner">
+	<div id="content_full">                         
+		<div class="content-header"><h3>CS2030/S Lab #5: Making Things Optional</h3></div>
+		<div class="spacer"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr><td valign="top" style="width: 30%;">
+				<div class="meta_header">Tags &amp; Categories</div>
+				<div id="classifyList"></div>
+			</td>
+			<td valign="top" style="width: 40%;">
+				<div class="meta_header">Related Tutorials</div>
+				<div id="tutorialList"></div>
+			</td>
+			<td valign="top" style="width: 30%;">
+			</td>
+			</tr>
+		</table>
+		<div class="content-header">
+			<h3>Task Content
+							</h3>
+		</div>                          
+		<div class="panel"><div class="task-content">
+		<h1>Making Things Optional</h1>
+<h2>Review Topics</h2>
+<ul>
+<li>Inheritance</li>
+<li>Overriding</li>
+<li>Interface</li>
+<li>Generic class</li>
+</ul>
+<h2>Topic Coverage</h2>
+<ul>
+<li>Bounded Type Parameter</li>
+<li>HashMap</li>
+<li>Optional</li>
+<li>Functional Interfaces</li>
+<!-- <li>Exception</li> -->
+</ul>
+<h2>Problem Description</h2>
+<p>In this lab, we are going to see how we can use <tt>Optional</tt> to simplify our tt, allowing us to focus on the core application logic instead of worrying about edge cases.
+This lab also involves using the <tt>HashMap</tt> class from Java Collections and more functional interfaces from Java: <tt>Consumer</tt>, <tt>Supplier</tt>, and <tt>Runnable</tt>.
+<h2>Task</h2>
+<p>
+Your task is to read in a roster of students, the modules they take, the assessments they have completed, and the grade for each assessment.   Then, given a query consisting of a triplet: a student, 
+a module, and an assessment, retrieve the corresponding grade.
+</p>
+<p>
+For instance, if the input is:
+<pre>
+Steve CS1010 Lab3 A
+Steve CS1231 Test A+
+Bruce CS2030 Lab1 C
+</pre>
+and the query is <tt>Steve CS1231 Test</tt>, the program should print <tt>A+</tt>.
+</p>
+<p>
+In our scenario, a roster has zero or more students; a student takes zero or more modules, a module has zero or more assessments, and each assessment has exactly one grade.   Each of these entities can be uniquely identified by a string.
+
+<p><table border="1" cellpadding=10><tr><td>
+<h2>Preamble</h2>
+<h2><tt>Map</tt></h2>
+<p>
+<tt>Map&lt;K,V&gt;</tt> is a generic interface from the Java Collection Framework, the implementation of which is useful for storing a collection of items and retrieving an item.   It maintains a map (aka dictionary) between keys (of type <tt>K</tt>) and values (of type <tt>V</tt>).  The two core methods are (i) <tt>put</tt>, which stores a (key, value) pair into the map, and (ii) <tt>get</tt>, which returns the value associated with a given key if the key is found or returns <tt>null</tt> otherwise.
+</p>
+<p>
+The following examples show how the <tt>Map&lt;K,V&gt;</tt> interface and its implementation <tt>HashMap&lt;K,V&gt;</tt> can be used.
+
+<pre>
+<b>jshell&gt; Map&lt;String,Integer&gt; map = new HashMap&lt;&gt;();</b>
+<b>jshell&gt; map.put("one", 1);</b>
+$.. ==&gt; null
+<b>jshell&gt; map.put("two", 2);</b>
+$.. ==&gt; null
+<b>jshell&gt; map.put("three", 3);</b>
+$.. ==&gt; null
+<b>jshell&gt; map.get("one")</b>
+$.. ==&gt; 1
+<b>jshell&gt; map.get("four")</b>
+$.. ==&gt; null
+<b>jshell&gt; map.entrySet()</b>
+$.. ==&gt; [one=1, two=2, three=3]
+<b>jshell&gt; for (Map.Entry e: map.entrySet()) {</b>
+<b>   ...&gt;  System.out.println(e.getKey() + ":" + e.getValue());</b>
+<b>   ...&gt; }</b>
+one:1
+two:2
+three:3
+</pre>
+
+<tr><td>
+<h2>Level 1</h2>
+<h2><tt>Assessment</tt> class and <tt>Keyable</tt> interface</h2>
+<p>
+We shall start by writing the <tt>Assessment</tt> class that implements the following <tt>Keyable</tt> interface.
+
+<pre>
+interface Keyable {
+    String getKey();
+}
+</pre>
+
+<p>Include a <tt>getGrade</tt> method that returns the grade of an assessment.
+
+<pre>
+<b>jshell&gt; new Assessment("Lab1", "B")</b>
+$.. ==&gt; {Lab1: B}
+<b>jshell&gt; new Assessment("Lab1", "B").getGrade()</b>
+$.. ==&gt; "B"
+<b>jshell&gt; new Assessment("Lab1", "B").getKey()</b>
+$.. ==&gt; "Lab1"
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test1.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+<tr><td>
+
+<h2>Level 2</h2>
+<h2><tt>Module</tt> class</h2>
+
+<p>Write the <tt>Module</tt> class to store (via the <tt>put</tt> method) the assessments of a module in a map for easy retrieval as part of answering queries.
+A module can have zero or more assessments, with each assessment having a title as a key &mdash; a unique identifier.
+
+<pre>
+<b>jshell&gt; new Module("CS2040")</b>
+$.. ==&gt; CS2040: {}
+<b>jshell&gt; new Module("CS2040").getKey();</b>
+$.. ==&gt; "CS2040"
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B"))</b>
+$.. ==&gt; CS2040: {{Lab1: B}}
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).put(new Assessment("Lab2","A+"))</b>
+$.. ==&gt; CS2040: {{Lab1: B}, {Lab2: A+}}
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).put(new Assessment("Lab2","A+")).get("Lab1")</b>
+$.. ==&gt; {Lab1: B}
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).put(new Assessment("Lab2","A+")).get("Lab2")</b>
+$.. ==&gt; {Lab2: A+}
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).put(new Assessment("Lab2","A+")).get("Lab3")</b>
+$.. ==&gt; null
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test2.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<tr><td>
+<h2>Level 3</h2>
+<h2><tt>Student</tt> class and generic class <tt>KeyableMap</tt></h2>
+
+<p>Write a <tt>Student</tt> class that stores the modules he/she reads in a map via the <tt>put</tt> method.
+A student can read zero or more modules, with each module having a unique module code as its key.
+You will notice that the implementations of the <tt>Student</tt> and <tt>Module</tt> classes are very similar.
+Hence, by applying the <i>abstraction principle</i>, write a generic class <tt>KeyableMap</tt> to reduce the duplication.
+
+<p><i>Hint:</i>
+<tt>KeyableMap&lt;V&gt;</tt> is a generic class that wraps around a <tt>String</tt> key (i.e. implements <tt>Keyable</tt>) and a <tt>Map&lt;String,V&gt;</tt>.  <tt>KeyableMap</tt> models an entity that contains a map, but is also itself contained in another container (e.g. a student contains a map of modules but could be contained in a roster).  
+The parameter type <tt>V</tt> is the type of the value of items stored in the map; <tt>V</tt> must be a subtype of <tt>Keyable</tt>.
+
+<p>The class <tt>KeyableMap</tt> is a mutable class -- we made this decision since the <tt>Map</tt> implementation in Java Collection Framework is mutable.  <tt>KeyableMap</tt> provides two core methods:
+<ul>
+	<li><tt>get(String key)</tt> which returns the item with the given <tt>key</tt>;</li>
+	<li><tt>put(V item)</tt> which adds the key-value pair (<tt>item.getKey()</tt>,<tt>item</tt>) into the map.
+The <tt>put</tt> method returns a <tt>KeyableMap</tt>.  To avoid type mismatch when chaining <tt>put</tt> method calls together, each sub-class of <tt>KeyableMap</tt> should override the <tt>put</tt> method from <tt>KeyableMap</tt> and change the return type to the corresponding sub-classes.  
+E.g., <tt>Student</tt> should override <tt>put</tt> to return a <tt>Student</tt> through a (guaranteed to be safe) type casting.
+<!--
+<p>(Note: An alternative is to make <tt>put</tt> a generic method with a bounded type parameter in <tt>KeyableMap</tt> and relies on an unchecked type cast.  But we let the more advanced students explore this option on their own).</p>
+-->
+</ul>
+
+
+<!--
+<p>
+The return type of <tt>get</tt> should be <tt>V</tt>.  The return type of <tt>put</tt> is a bit tricky.  To allow method chaining, like we always do in CS2030, we require <tt>put</tt> to return the type of the caller.  In <tt>KeyableMap</tt> the return type is just <tt>KeyableMap&lt;..&gt;</tt> (type parameters omitted).  
+<p>
+-->
+
+<pre>
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1")</b>
+$.. ==&gt; {Lab1: B}
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1").getGrade()</b>
+$.. ==&gt; "B"
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B")))</b>
+$.. ==&gt; Tony: {CS2040: {{Lab1: B}}}
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040")</b>
+$.. ==&gt; CS2040: {{Lab1: B}}
+<b>jshell&gt; Student natasha = new Student("Natasha");</b>
+<b>jshell&gt; natasha.put(new Module("CS2040").put(new Assessment("Lab1", "B")))</b>
+$.. ==&gt; Natasha: {CS2040: {{Lab1: B}}}
+<b>jshell&gt; natasha.put(new Module("CS2030").put(new Assessment("PE", "A+")).put(new Assessment("Lab2", "C")))</b>
+$.. ==&gt; Natasha: {CS2030: {{Lab2: C}, {PE: A+}}, CS2040: {{Lab1: B}}}
+<b>jshell&gt; Student tony = new Student("Tony");</b>
+<b>jshell&gt; tony.put(new Module("CS1231").put(new Assessment("Test", "A-")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}}
+<b>jshell&gt; tony.put(new Module("CS2100").put(new Assessment("Test", "B")).put(new Assessment("Lab1", "F")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}, CS2100: {{Lab1: F}, {Test: B}}}
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test3.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+</td></tr>
+<tr><td>
+
+<h2>Level 4</h2>
+<h2>Avoiding <tt>null</tt> with <tt>Optional</tt></h2>
+
+<p>So far we have been avoiding invalid retrievals such as 
+
+<pre>
+new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab2")
+</pre>
+
+which would result in a <tt>null</tt> value.  Furthermore, chaining methods like
+
+<pre>
+new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2030" ).get("Lab1")
+</pre>
+
+would result in a <tt>NullPointerException</tt> being thrown due to calling <tt>get("Lab1")</tt> on a <tt>null</tt> value.
+Let's deal with the generation of <tt>null</tt> values first, and worry about chaining <tt>get</tt> methods in the next level.
+
+<p>Take a look at the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Optional.html">Java documentation of Optional</a> to familiarize yourself with the APIs available.  
+Modify the <tt>KeyableMap</tt> generic class such that each call to <tt>get</tt> returns an <tt>Optional&lt;V&gt;</tt> where <tt>V</tt> is a subtype of <tt>Keyable</tt>.
+
+<pre>
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1")</b>
+$.. ==&gt; Optional[{Lab1: B}]
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B")))</b>
+$.. ==&gt; Tony: {CS2040: {{Lab1: B}}}
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040")</b>
+$.. ==&gt; Optional[CS2040: {{Lab1: B}}]
+<b>jshell&gt; Student natasha = new Student("Natasha");</b>
+<b>jshell&gt; natasha.put(new Module("CS2040").put(new Assessment("Lab1", "B")))</b>
+$.. ==&gt; Natasha: {CS2040: {{Lab1: B}}}
+<b>jshell&gt; natasha.put(new Module("CS2030").put(new Assessment("PE", "A+")).put(new Assessment("Lab2", "C")))</b>
+$.. ==&gt; Natasha: {CS2030: {{Lab2: C}, {PE: A+}}, CS2040: {{Lab1: B}}}
+<b>jshell&gt; Student tony = new Student("Tony");</b>
+<b>jshell&gt; tony.put(new Module("CS1231").put(new Assessment("Test", "A-")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}}
+<b>jshell&gt; tony.put(new Module("CS2100").put(new Assessment("Test", "B")).put(new Assessment("Lab1", "F")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}, CS2100: {{Lab1: F}, {Test: B}}}
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>As you can see, the only difference is that each value returned from an invocation of the <tt>get</tt> method is wrapped in an <tt>Optional</tt>.
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test4.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+</td></tr>
+
+<tr><td>
+<h2>Level 5</h2>
+<h2>"Chaining" <tt>Optionals</tt></h2>
+
+<p>Chaining <tt>Optionals</tt> together as such
+
+<pre>
+new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040" ).get("Lab1")
+</pre>
+
+will now result in a compilation error instead.
+This is because the <tt>Optional</tt> class does not have a <tt>get(String)</tt> method defined (<i>although it does define a <tt>get()</tt> method which, other than for debugging purposes, should typically be avoided</i>).
+
+<p>Rather than chaining in the usual way, we do it through a <tt>map</tt> or <tt>flatMap</tt>.  Let's start with <tt>map</tt>.
+
+<pre>
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1")</b>
+$.. ==&gt; Optional[{Lab1: B}]
+
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1").getGrade()</b>
+|  Error:
+|  cannot find symbol
+|    symbol:   method getGrade()
+|  new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1").getGrade()
+|  ^------------------------------------------------------------------------^
+
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1").map(x -&gt; x.getGrade())</b>
+$.. ==&gt; Optional[B]
+
+<b>jshell&gt; new Module("CS2040").put(new Assessment("Lab1", "B")).get("Lab1").map(Assessment::getGrade)</b>
+$.. ==&gt; Optional[B]
+</pre>
+
+<p>As expected, invoking <tt>getGrade()</tt> on an <tt>Optional</tt> results in a compilation error.
+However, we can perform a similar chaining effect by passing in the functionality of <tt>getGrade</tt> (either in the form of a lambda or method reference) to <tt>Optional</tt>'s <tt>map</tt> method.
+Notice the return value is actually wrapped in another <tt>Optional</tt>.
+When using <tt>map</tt>, you can think of the operation as "taking the value out of the <tt>Optional</tt> box, transforming it via the function passed to map, and wrap the transformed value back in another <tt>Optional</tt>".
+
+<p>Now this is where things start to get interesting!
+Look at the following:
+
+<pre>
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040" ).map(x -&gt; x.get("Lab1"))</b>
+$.. ==&gt; Optional[Optional[{Lab1: B}]]
+</pre>
+
+Observe that the return value is an <tt>Optional</tt> wrapped around another <tt>Optional</tt> that wraps around the desired value!
+Why is this so?
+The difference lies in the return type of <tt>Assessment::getGrade</tt> (read <tt>getGrade</tt> method of the <tt>Assessment</tt> class) and <tt>Module::get</tt>.  
+The former returns a <tt>String</tt>, while the latter returns an <tt>Optional</tt>.
+
+<p>In <tt>x -&gt; x.getGrade()</tt> (or <tt>Assessment::getGrade</tt>), the transformed value is simply the grade, and this is wrapped in an Optional.
+However, passing <tt>x -&gt; x.get("Lab1")</tt> in the above code snippet results in a transformed value of <tt>Optional</tt>.  
+And this transformed value is wrapped around another <tt>Optional</tt> via the <tt>map</tt> operation!
+
+<p>As such, we use the <tt>flatMap</tt> method instead.
+You may think of <tt>flatMap</tt> as flattening the <tt>Optional</tt>s into a single one.
+
+<pre>
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040" ).flatMap(x -&gt; x.get("Lab1"))</b>
+$.. ==&gt; Optional[{Lab1: B}]
+
+<b>jshell&gt; new Student("Tony").put(new Module("CS2040").put(new Assessment("Lab1", "B"))).get("CS2040" ).flatMap(x -&gt; x.get("Lab1")).map(Assessment::getGrade)</b>
+$.. ==&gt; Optional[B]
+</pre>
+
+<p>Now you are ready to create a roster.
+Define a <tt>Roster</tt> class that stores the students in a map via the <tt>put</tt> method.
+A roster can have zero or more students, with each student having a unique id as its key.
+Once again, notice the similarities between <tt>Roster</tt>, <tt>Student</tt> and <tt>Module</tt>.
+
+<p>
+Define a method called <tt>getGrade</tt> in <tt>Roster</tt> to answer the query from the user.  The method takes in three <tt>String</tt> parameters, corresponds to the student id, the module code, and the assessment title, and returns the corresponding grade.  
+
+<p>In cases where there are no such student, or the student does not read the given module, or the module does not have the corresponding assessment, then output <tt>No such record</tt> followed by details of the query.
+Here, you might find <tt>Optional::orElse</tt> useful.
+
+<p>
+<pre>
+<b>jshell&gt; Student natasha = new Student("Natasha");</b>
+<b>jshell&gt; natasha.put(new Module("CS2040").put(new Assessment("Lab1", "B")))</b>
+$.. ==&gt; Natasha: {CS2040: {{Lab1: B}}}
+<b>jshell&gt; natasha.put(new Module("CS2030").put(new Assessment("PE", "A+")).put(new Assessment("Lab2", "C")))</b>
+$.. ==&gt; Natasha: {CS2030: {{Lab2: C}, {PE: A+}}, CS2040: {{Lab1: B}}}
+<b>jshell&gt; Student tony = new Student("Tony");</b>
+<b>jshell&gt; tony.put(new Module("CS1231").put(new Assessment("Test", "A-")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}}
+<b>jshell&gt; tony.put(new Module("CS2100").put(new Assessment("Test", "B")).put(new Assessment("Lab1", "F")))</b>
+$.. ==&gt; Tony: {CS1231: {{Test: A-}}, CS2100: {{Lab1: F}, {Test: B}}}
+<b>jshell&gt; Roster roster = new Roster("AY1920").put(natasha).put(tony)</b>
+<b>jshell&gt; roster</b>
+roster ==&gt; AY1920: {Natasha: {CS2030: {{Lab2: C}, {PE: A+}}, CS2040: {{Lab1: B}}}, Tony: {CS1231: {{Test: A-}}, CS2100: {{Lab1: F}, {Test: B}}}}
+<b>jshell&gt; roster.get("Tony").flatMap(x -&gt; x.get("CS1231")).flatMap(x -&gt; x.get("Test")).map(Assessment::getGrade)</b>
+$.. ==&gt; Optional[A-]
+<b>jshell&gt; roster.get("Natasha").flatMap(x -&gt; x.get("CS2040")).flatMap(x -&gt; x.get("Lab1")).map(Assessment::getGrade)</b>
+$.. ==&gt; Optional[B]
+<b>jshell&gt; roster.get("Tony").flatMap(x -&gt; x.get("CS1231")).flatMap(x -&gt; x.get("Exam")).map(Assessment::getGrade)</b>
+$.. ==&gt; Optional.empty
+<b>jshell&gt; roster.get("Steve").flatMap(x -&gt; x.get("CS1010")).flatMap(x -&gt; x.get("Lab1")).map(Assessment::getGrade)</b>
+$.. ==&gt; Optional.empty
+<b>jshell&gt; roster.getGrade("Tony","CS1231","Test")</b>
+$.. ==&gt; "A-"
+<b>jshell&gt; roster.getGrade("Natasha","CS2040","Lab1")</b>
+$.. ==&gt; "B"
+<b>jshell&gt; roster.getGrade("Tony","CS1231","Exam");</b>
+$.. ==&gt; "No such record: Tony CS1231 Exam"
+<b>jshell&gt; roster.getGrade("Steve","CS1010","Lab1");</b>
+$.. ==&gt; "No such record: Steve CS1010 Lab1"
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test5.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<tr><td>
+<h2>Level 6</h2>
+<h2>The <tt>Main</tt> class</h2>
+
+<p>
+Now use the classes that you have built and write a <tt>Main</tt> class to solve the following:
+</p>
+<p>
+Read the following from the standard input:
+<ul>
+	<li>The first token read is an integer <i>N</i>, indicating the number of records to be read.</li>
+	<li>The subsequent inputs consist of <i>N</i> records, each record consists of four words, separated by one or more spaces.  The four words correspond to the student id, the module code, the assessment title, and the grade, respectively.
+	<li>The subsequent inputs consist of zero or more queries.  Each query consists of three words, separated by one or more spaces.  The three words correspond to the student id, the module code, and the assessment title.
+</ul>
+For each query, if a match in the input is found, print the corresponding grade to the standard output.  Otherwise, print "No Such Record:" followed by the three words given in the query, separated by exactly one space.
+</p>
+<p>
+See sample input and output below.  Inputs are underlined.
+</p>
+
+<pre>$ java Main
+<u>12
+Jack   CS2040 Lab4    B
+Jack   CS2040 Lab6    C
+Jane   CS1010 Lab1    A
+Jane   CS2030 Lab1    A+
+Janice CS2040 Lab1    A+
+Janice CS2040 Lab4    A+
+Jim    CS1010 Lab9    A+
+Jim    CS2010 Lab1    C
+Jim    CS2010 Lab2    B
+Jim    CS2010 Lab8    A+
+Joel   CS2030 Lab3    C
+Joel   CS2030 Midterm A
+Jack   CS2040 Lab4
+Jack   CS2040 Lab6
+Janice CS2040 Lab1
+Janice CS2040 Lab4
+Joel   CS2030 Midterm
+Jason  CS1010 Lab1
+Jack   CS2040 Lab5
+Joel   CS2040 Lab3
+</u>B
+C
+A+
+A+
+A
+No such record: Jason CS1010 Lab1
+No such record: Jack CS2040 Lab5
+No such record: Joel CS2040 Lab3
+</pre>
+
+<p>Note:
+
+<ul>
+<li>You might find <tt>Optional::ifPresentOrElse</tt> useful.
+<li>On CodeCrunch, we will check for any use of <tt>null</tt> in your code. Any occurence of the string <tt>null</tt> would fail the CodeCrunch test. Thus, avoid variable or method names that contain the substring <tt>null</tt>.
+<li>Further, we will disallow the use of methods <tt>Optional::get</tt> and <tt>Optional::isPresent</tt>, as the former could cause <tt>NullPointerException</tt>, while the latter is essentially the same as checking for <tt>null</tt>.
+</ul>
+
+<p>
+Compile and check your styling by issuing the following
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ checkstyle *.java
+</pre>
+</p>
+
+</td></tr>
+</table>
+		</div></div>                          
+					<div class="content-header">
+					<h3>Submission (Practice)</h3>
+			</div>
+			<div id="practiceNotification"></div>
+			<div class="panel">
+				<span class="label" style="vertical-align:top">Your Files:</span>
+				<span class="value-long">
+					<div id="plupload_container">
+						<a id="task_submission" href="javascript:;" class="submitButton">BROWSE</a>
+					</div>
+					<br />
+					<div id="filelist">Your browser doesn't have HTML5 or Flash support.</div>
+					<script type="text/javascript">
+						var uploader;
+						$(document).ready(function() {		
+							uploader = new plupload.Uploader({
+								runtimes: 'html5,flash,html4',
+								browse_button: 'task_submission',
+								container: 'plupload_container',
+								prevent_duplicates: true,
+								url: 'plupload/uploadFiles.php',
+
+								filters: {
+									max_file_size: '31457280', 
+									mime_types: [
+										{title : "Allowed files", extensions : "java,c,cpp,h,py,jar,jsh"}	
+									]
+								},
+
+								init: {
+									PostInit: function () {
+										document.getElementById('filelist').innerHTML = '';
+									},
+
+									FilesAdded: function (up, files) {
+										plupload.each(files, function(file) {
+											document.getElementById('filelist').innerHTML += 
+												'<li class="plupload_file ui-state-default plupload_delete" id="' + file.id + '" class="plupload_file_name">' +  
+													'<div class="plupload_file_status">' +
+														'<div class="plupload_file_action">' + 
+															'<div class="plupload_action_icon ui-icon ui-icon-circle-close" onclick="uploader.removeFile(uploader.getFile(\''+file.id+'\'));"> </div>' + 
+														'</div>' +
+														'<div class="plupload_file_name" title="' + file.name + '">' + 
+															'<span class="plupload_file_name_wrapper">' + file.name + '   (<i>' + plupload.formatSize(file.size) + '</i>) <b></b>' + '</span>' +
+														'</div>' +
+													'</div>' +
+												'</li>';
+										});
+										document.getElementById('filelist').innerHTML = '<ul class="plupload_filelist_content" id="uploader_filelist" unselectable="on">' + document.getElementById('filelist').innerHTML + '</ul>';
+
+									},
+
+									FilesRemoved: function(up, files) {
+										plupload.each(files, function(file) {
+											$('#' + file.id).remove();
+										});
+									},
+
+									FileUploaded: function(up, file, info) {
+										$('#' + file.id).remove();
+									},
+
+									UploadProgress: function(up, file) {
+										$('#' + file.id + ' b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+									},
+
+									UploadComplete: function(up, files) {
+										doTaskGrade();
+									},
+
+									Error: function(up, err) {
+										alert("\nError #" + err.code + ": " + err.message);
+									}
+								}
+							});
+							uploader.init();
+
+
+						});
+
+					</script><br />
+					<p><a href="javascript:uploader.setOption('multipart_params', { 'sess_id': '4imagvo93nti0hr6nmlli8ehmit3175i', 'type': 'task_submission', 'tid': '4964', 'username': 'e0426047', 'uid': '19992' }); javascript:uploader.start();" class="submitButton">SUBMIT</a>
+					(only .java, .c,  .cpp, .h, .jsh, and .py extensions allowed)</p>
+				</span>
+				<br />
+				<span class="label">&nbsp;</span>
+				<span class="value-long" style="font-size: 90%; color: #777;">To submit multiple files, click on the Browse button, then select one or more
+				files. The selected file(s) will be added to the upload queue. You can repeat this step to add more files. Check that you have all the files
+				needed for your submission. Then click on the Submit button to upload your submission.</span>
+			</div>
+        							<input type="hidden" id="tid" name="tid" value="4964" />
+		</div>
+		<!-- end content -->
+</div>
+<!-- end inner -->
+<div id="loading-mask">
+        <p id="loading_mask_loader" class="loader"> <img alt="Loading..." src="images/ajax-loader-tr.gif" /> <br/>
+                Please wait... </p>
+</div>
+<script type="text/javascript">
+$(".star").rating({
+        focus: function(value, link) {
+                var tip = $("#rating_text");
+                tip[0].data = tip[0].data || tip.html(); 
+                tip.html(link.title || "value: " + value);
+        },
+        blur: function(value, link) {
+                var tip = $("#rating_text");
+                $("#rating_text").html(tip[0].data || "");
+        },
+        callback: function(value, link) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_updaterating.php",
+                        data: ({tid:$("#tid").val(), rating:value}),
+                        success: function(html) {
+                                var msg = html.split(";");
+                                $("#rating_text").removeClass().addClass(msg[0]);
+                                $("#rating_text").html(msg[1]);
+                        }
+                });
+        }
+});
+
+function getComments() {
+        $.ajax({
+                type: "POST",
+                url: "task_getcomments.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#commentList").html(html);
+                }
+        });
+}
+
+function doTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#practiceNotification").removeClass().addClass(msg[0]);
+                        $("#practiceNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function doCourseTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val(), course_id:$("#course_id").val(), do_course:1}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#courseNotification").removeClass().addClass(msg[0]);
+                        $("#courseNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function addComment() {
+        $.ajax({
+                type: "POST",
+                url: "task_addcomment.php",
+                data: ({tid:$("#tid").val(), comment:encodeURIComponent($("#comment").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function deleteComment(c) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletecomment.php",
+                data: ({comment_id:c}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function getClassify(){
+                $.ajax({
+                type: "GET",
+                url: "task_classify.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#classifyList").html(html);
+                }
+        });
+}
+
+function getTutorial(){
+        $.ajax({
+                type: "POST",
+                url: "task_gettutorials.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#tutorialList").html(html);
+                }
+        });
+}
+
+function getQueries() {
+        $.ajax({
+                type: "POST",
+                url: "task_getqueries.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#queryList").html(html);
+                }
+        });
+}
+
+function addQuery() {
+        $.ajax({
+                type: "POST",
+                url: "task_addquery.php",
+                data: ({tid:$("#tid").val(), contest_id:$("#contest_id").val(), query:encodeURIComponent($("#query").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function deleteQuery(q) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletequery.php",
+                data: ({query_id:q}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function addTag() {
+        $.ajax({
+                type: "POST",
+                url: "tag_add.php",
+                data: ({tid:$("#tid").val(), tags:$("#tagwords").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#tagNotification").removeClass().addClass(msg[0]);
+                        $("#tagNotification").html(msg[1]);
+                        
+                        getClassify();
+                }
+        });
+}
+
+
+$(document).ready(function() {
+        getComments();
+        getQueries();
+        getClassify();
+        getTutorial();
+        //getCloud();
+});
+
+$(document).everyTime(60000, function(i) {
+        if ($("#tid").val() != "" && $("#tid").val() != null) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcontest.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#contest_submit").html("");
+                                }
+                        }
+                });
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcourse.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#course_submit").html("");
+                                }
+                        }
+                });
+        }
+}, 0);
+
+$('#loading_mask_loader')
+        .hide()  // hide it initially
+        .ajaxStart(function() {
+                $(this).show();
+        })
+        .ajaxStop(function() {
+                $(this).hide();
+        });
+        
+</script>
+</body>
+</html>
+</div> <!-- end outer -->
+
+</div> <!-- end container -->
+
+<!-- START NUS-Footer --> 
+<div id="nusfooter" class="nusbody">
+<div id="nusfooter_ml"><div id="nusfooter_mr">
+<div id="nusfooter_tc"><div id="nusfooter_tl"><div id="nusfooter_tr">
+<div id="nusfooter_bc"><div id="nusfooter_bl"><div id="nusfooter_br">
+<div class="inner"><div class="left"><p>&copy; Copyright 2009-2020 National University of Singapore. All Rights Reserved.</p>  
+<p class="nusfooterlinks">
+<a href="http://www.nus.edu.sg/terms.php">Terms of Use</a> |
+<a href="http://www.nus.edu.sg/policy.php">Privacy</a> |
+<a href="http://www.nus.edu.sg/nondiscrim.php">Non-discrimination</a></p> 
+</div>    
+<div class="right">
+<a href="https://mysoc.nus.edu.sg/">MySoC</a> |
+<a href="https://docs.comp.nus.edu.sg/cf/">Computing Facilities</a> |
+<a href="http://www.nus.edu.sg/search/">Search</a> |
+<a href="http://www.nus.edu.sg/campusmap/">Campus Map</a>
+<p>School of Computing, National University of Singapore</p>
+</div>    
+<div style="clear: both;"> </div>
+</div>
+</div></div></div>
+</div></div></div>
+</div></div>
+</div>
+<!-- END NUS-Footer --></body>
+</html>
