@@ -13,8 +13,13 @@ public class Statement {
 		return new Statement(input, lineNo);
 	}
 
+	/**
+	 * set the max number of records.
+	 * 
+	 * @param input user input
+	 * 
+	 */
 	public static void setMaxRecord(String input) {
-
 		// Parse the first command if its the first input
 		try {
 			Scanner sc = new Scanner(input);
@@ -26,11 +31,17 @@ public class Statement {
 
 	}
 
-	// Instance member and methods
 	private String command;
 	private String[] arguments;
 	private String message;
 
+	/**
+	 * Statement Constructor.
+	 * 
+	 * @param input user input
+	 * @param line  line number
+	 * 
+	 */
 	public Statement(String input, int line) {
 
 		Scanner sc = new Scanner(input);
@@ -48,6 +59,7 @@ public class Statement {
 			this.command = "query";
 		}
 
+		// read arguments
 		try {
 			for (int i = 0; i < arguments.length; i++) {
 				this.arguments[i] = sc.next();
@@ -67,6 +79,12 @@ public class Statement {
 		}
 	}
 
+	/**
+	 * add the record to the roster
+	 * 
+	 * @param record formatted record
+	 * 
+	 */
 	private void addRecord(String[] record) {
 		Assessment assessment = new Assessment(record[2], record[3]);
 		Module module = new Module(record[1]).put(assessment);
@@ -84,10 +102,23 @@ public class Statement {
 
 	}
 
+	/**
+	 * get the grade.
+	 * 
+	 * @param query formatted user input
+	 * @return the query result
+	 * 
+	 */
 	private String checkQuery(String[] query) {
 		return roster.getGrade(query[0], query[1], query[2]);
 	}
 
+	/**
+	 * evaluate the user input.
+	 * 
+	 * @return the query result
+	 * 
+	 */
 	public String evaluate() {
 		if (!this.command.equals("err")) {
 			// if its record no return message

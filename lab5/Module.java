@@ -1,5 +1,9 @@
 class Module extends KeyableMap<Assessment> implements Keyable {
-
+    /**
+     * Module Constructor
+     * 
+     * @param key module id
+     */
     Module(String key) {
         super(key);
     }

@@ -1,4 +1,9 @@
 class Student extends KeyableMap<Module> implements Keyable {
+    /**
+     * Student Constructor.
+     * 
+     * @param key student id
+     */
     Student(String key) {
         super(key);
     }
