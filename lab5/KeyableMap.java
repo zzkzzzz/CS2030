@@ -30,13 +30,13 @@ public class KeyableMap<V extends Keyable> {
 
     @Override
     public String toString() {
-        String result = this.getKey() + ":{";
+        String result = this.getKey() + ": {";
 
         for (Map.Entry<String, V> e : map.entrySet()) {
-            result = result.concat(e.getValue() + ",");
+            result = result.concat(e.getValue() + ", ");
         }
         if (this.map.size() != 0)
-            result = result.substring(0, result.length() - 1);
+            result = result.substring(0, result.length() - 2);
 
         return result.concat("}");
 
