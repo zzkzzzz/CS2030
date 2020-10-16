@@ -1,0 +1,896 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />
+<title>CodeCrunch</title>
+<!-- START NUS Includes-->
+<script type="text/javascript" src="/nus/nussearch.js"></script>
+<link rel="stylesheet" type="text/css" href="/nus/nusbase.css" media="screen, print, projection, handheld" />
+<link rel="stylesheet" type="text/css" href="/nus/nusmenu.css" media="screen, print, projection, handheld" />
+<link rel="stylesheet" type="text/css" href="/nus/nusscreen.css" media="screen, projection, print" />
+<link href="/nus/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link rel="apple-touch-icon" href="/nus/blank.png"/>
+<!-- END NUS Includes -->
+<script type="text/javascript" src="/js/ajax.js"></script>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.pager.js"></script>
+<!--<script type="text/javascript" src="/js/folding.js"></script>-->
+<script type="text/javascript" src="/js/jquery.watermark.min.js"></script>
+<script type="text/javascript">
+            function enterPressButton(field, button) {
+                $(field).keypress(function(e){if(e.which==13)$(button).trigger("click");});
+            }
+</script>
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/tablesorter/jquery.tablesorter.css" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<!--<script type="text/javascript" src="js/folding.js"></script>-->
+<script type="text/javascript" src="js/jquery.rating.js"></script>
+<script type="text/javascript" src="js/behaviour.js"></script>
+<script type="text/javascript" src="js/textarea_maxlen.js"></script>
+<script type="text/javascript" src="js/jquery.timer.js"></script>
+
+<script type="text/javascript" src="plupload/js/plupload.full.min.js"></script>
+
+<link rel="stylesheet" href="css/jquery.rating.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/tagcloud.css" type="text/css" />
+<link rel="stylesheet" href="css/jquery-ui-1.7.2.custom.css" type="text/css" />
+
+<link rel="stylesheet" href="plupload/js/jquery_ui_plupload/css/jquery.ui.plupload.css" type="text/css" />
+
+</head>
+
+<body>
+<!-- START NUS-Header -->
+
+<!-- NUS Header -->
+<div id="nusheader" class="nusbody">
+<div class="nuslogodiv">
+<a href="http://www.nus.edu.sg/">
+<img class="nuslogo" src="/nus/soclogo.png" alt="" />
+</a>
+</div>
+<div id="nuspointermenu">
+<ul>
+<li><a href="http://exchange.nus.edu.sg/"><span style="text-transform:none">NUS WebMail</span></a></li>
+<li><a href="https://ivle.nus.edu.sg/lms/default.aspx">ivle</a></li>
+<li><a href="http://www.lib.nus.edu.sg/">library</a></li>
+<li><a href="http://www.nus.edu.sg/campusmap/" >maps</a></li>
+<!--<li><a href="https://aces01.nus.edu.sg/CoE/jsp/coeMain.jsp">calendar</a></li>-->
+<!--<li><a href="/sitemap">sitemap</a></li>-->
+<!--<li><a href="#">a-z index</a></li>-->
+<!--<li><a href="/contact">contact</a></li>-->
+<li><a href="#" id="rightcorner">&nbsp;</a></li>
+</ul>
+<br style="clear: left" />
+</div>
+<div id="searchform">
+<script src="/nus/nussearch.js" type="text/javascript"></script>
+<form id="frmSearch" onsubmit="evalSearch();return false" action=""><div>
+<a href="http://www.nus.edu.sg/search/" style="text-decoration:none; font-size:11px; font-weight:bold; color:#666666">Search </a>
+<input id="txtKeyword" type="text" value="search for..." onfocus="value=''" class="equal" size="18" />
+in
+<select id="SearchMenu" name="SearchMenu">
+<option selected="selected" value="0">NUS Websites</option>
+<option value="1">Internet</option>
+<option value="2">Staff Directory</option>
+<option value="3">Advanced Search</option>
+</select>
+<input class="equal" id="Go" src="/nus/go.png" type="image" />
+</div></form>
+</div>
+</div>
+
+<!-- NUS Local-Navigation --><!--
+<div id="nusmenu" class="nusbody"><div id="nusmenu_l"><div id="nusmenu_r">
+<ul>
+  <li><a href="http://www.comp.nus.edu.sg/index.html">Home</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/about.html">About Us</a></li>
+  <li><a class="drop" href="javascript:;">Departments</a>
+    <ul>
+      <li><a href="http://www.comp.nus.edu.sg/cs" >Computer Science</a></li>
+      <li><a href="http://www.comp.nus.edu.sg/is/" >Information Systems</a></li>
+    </ul>
+  </li>
+  <li><a href="http://www.comp.nus.edu.sg/undergraduates" >Undergraduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/graduates" >Graduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/research" >Research</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/entrepreneurship" >Entrepreneurship</a></li>
+  <li><a href="http://www.stmi.nus.edu.sg" >Executive Education</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/external_relations" >External Relations</a></li>
+</ul>
+</div></div></div>
+-->
+
+<!-- NUS Inner-Title -->
+<div id="nustitle" class="nusbody"><div id="nustitle_l"><div id="nustitle_r">
+              <h1 id="site-name">
+                <a href="/" title="Home" rel="home">CodeCrunch</a>
+              </h1>
+</div></div></div>
+
+<!-- END NUS-Header -->
+
+<div id="banner">
+        <div id="topmenu">
+        <div id="login">
+                Logged in as: <strong>e0426047</strong>
+                </div>
+                <div style="display: block;"><ul>
+                                        <li><a href="index.php" >Home</a></li>
+                                                    <li><a href="course_viewall.php" >Courses</a></li>
+                                                                <li><a href="tutorial_viewall.php" >Tutorials</a></li>
+                                                                <li><a href="task_viewall.php" >Tasks</a></li>
+                                                                <li><a href="tutorial_browser.php" >Browse Tutorials</a></li>
+                                                                <li><a href="user_viewsubmissions.php" >My Submissions</a></li>
+                                                                <li><a href="tools.php
+" >Tools</a></li>
+                                                <li><a href="logout_process.php" >Logout</a></li>
+                            </ul></div>
+        </div>
+</div>
+<div id="container">
+<div id="outer">
+<div id="inner">
+	<div id="content_full">                         
+		<div class="content-header"><h3>CS2030/S Lab #6</h3></div>
+		<div class="spacer"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr><td valign="top" style="width: 30%;">
+				<div class="meta_header">Tags &amp; Categories</div>
+				<div id="classifyList"></div>
+			</td>
+			<td valign="top" style="width: 40%;">
+				<div class="meta_header">Related Tutorials</div>
+				<div id="tutorialList"></div>
+			</td>
+			<td valign="top" style="width: 30%;">
+			</td>
+			</tr>
+		</table>
+		<div class="content-header">
+			<h3>Task Content
+							</h3>
+		</div>                          
+		<div class="panel"><div class="task-content">
+		<h1>Logging</h1>
+<h2>Topic Coverage</h2>
+<ul>
+<li>Generics</li>
+<li>Function</li>
+<li>Lambda expression</li>
+<li><tt>map</tt> and <tt>flatMap</tt></li>
+</ul>
+
+<h2>Problem Description</h2>
+
+<p>In this lab, we are going to write an <i>immutable</i> <tt>Logger</tt> class to handle the context of logging changes to values while they are operated upon. 
+In a way, the logger separates the code for logging from the main processing.
+Each logger wraps around a value, and everytime <tt>map</tt> or <tt>flatMap</tt> is called, a new <tt>Logger</tt> object is created.
+The <tt>printlog</tt> method can be invoked the output the log.
+
+<p>A sample logging session is shown below:
+
+<pre>
+<b>jshell&gt; Logger.make(5)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1)</b>
+$.. ==&gt; Logger[6]
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 6
+<b>jshell&gt; Logger.make(5).map(x -&gt; x * 1)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).map(x -&gt; x * 1).printlog()</b>
+Value initialized. Value = 5
+Value unchanged. Value = 5
+</pre>
+
+<p>Notice that the log of value changes through time is output whenever the <tt>printlog()</tt> method is called.  
+There are three different types of log messages:
+
+<ul>
+<li>During initialization: <tt>Value initialized. Value = ..</tt>
+<li>When value is modified: <tt>Value changed! New value = ..</tt>
+<li>When value remains unchanged: <tt>Value unchanged. Value = ..</tt>
+</ul>
+
+<h2>Task</h2>
+<p>
+Your task is to write a <tt>Logger</tt> class that provides the operations
+<tt>make</tt>,
+<tt>equals</tt>,
+<tt>printlog</tt>,
+<tt>map</tt>,
+<tt>flatMap</tt> and
+<tt>test</tt>.
+You will also write several applications using the <tt>Logger</tt> as solutions to classic computation problems.  This would allow us to look at the values changes when solving each problem.
+
+<p>This task is divided into several levels. 
+Read through all the levels to see how the different levels are related.
+
+<p>Remember to:
+
+<ul>
+<li>always compile your program files first before using jshell to test your program
+<li>use checkstyle and javadoc comments to enhance code readability and facilitating code review
+</ul>
+
+<p>
+<h2>Level 1</h2>
+<h2>Creating the logger</h2>
+
+<p>Start by writing a static method <tt>make</tt> to wrap a value within a <tt>Logger</tt>.
+Include the <tt>toString()</tt> method as well as the <tt>printlog()</tt> method to return the string representation of the <tt>Logger</tt> and log messages respectively.  
+At this point of time, there are only initialization messages.
+Finally, include an <tt>equals</tt> method that returns <tt>true</tt> if the argument <tt>Logger</tt> object is the same as <tt>this</tt>, or <tt>false</tt> otherwise.  Two <tt>Loggers</tt> are equal if and only if both the wrapped value as well as the logs are the same.
+
+<pre>
+<b>jshell&gt; Logger.make(5)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make("hello")</b>
+$.. ==&gt; Logger[hello]
+<b>jshell&gt; Logger.make("hello").printlog()</b>
+Value initialized. Value = hello
+<b>jshell&gt; Logger.make(5).equals(Logger.make(5))</b>
+$.. ==&gt; true
+<b>jshell&gt; Logger.make(5).equals(5)</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make(5).equals(Logger.make("five"))</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make(5).equals((Object)(Logger.make(5)))</b>
+$.. ==&gt; true
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test1.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<p>
+<h2>Level 2</h2>
+<h2>Creating a valid logger</h2>
+
+<p>We need to prevent the <tt>make</tt> method from being misused by nesting or chaining the methods, e.g.
+
+<ul>
+<li><tt>Logger.make(Logger.make(5))</tt>
+<li><tt>Logger.make(5).make(7)</tt>
+</ul>
+
+<p>In the case of nesting <tt>make</tt> methods, we throw an <tt>IllegalArgumentException</tt> everytime the <tt>make</tt> method takes in another <tt>Logger</tt> as argument.
+
+<p>To prevent chaining, we can make the <tt>Logger</tt> an interface with the static method <tt>make</tt>, and let <tt>LoggerImpl</tt> be the concrete class that implements the functionalities of logging.    
+Here, we restrict the chaining of <tt>make</tt> method calls at the expense of introducing a cyclic dependency between <tt>Logger</tt> and <tt>LoggerImpl</tt>... <i>that is, unless someone comes up with a better idea...</i>
+
+<p>In addition, passing a <tt>null</tt> to <tt>make</tt> will also result in an <tt>IllegalArgumentException</tt> thrown.
+
+<pre>
+<b>jshell&gt; Logger.make(5)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5) instanceof Logger </b>
+$.. ==&gt; true
+<b>jshell&gt; try { Logger.make(Logger.make(7)); } catch (Exception e) { System.out.println(e); }</b>
+java.lang.IllegalArgumentException: already a Logger
+<b>jshell&gt; Logger.make(5).make(7)</b>
+|  Error:
+|  illegal static interface method call
+|    the receiver expression should be replaced with the type qualifier 'Logger&lt;java.lang.Integer&gt;'
+|  Logger.make(5).make(7)
+|  ^--------------------^
+<b>jshell&gt; try { Logger.make(null); } catch (Exception e) { System.out.println(e); }</b>
+java.lang.IllegalArgumentException: argument cannot be null
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test2.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<h2>Level 3</h2>
+<h2>The <tt>map</tt> method</h2>
+
+<p>Include a <tt>map</tt> method that takes in a function of the form <tt>Function&lt;? super T, ? extends U&gt;</tt>, applies it on the value, and wraps the result in a <tt>Logger</tt>.
+
+<pre>
+<b>jshell&gt; Logger.make(5)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1)</b>
+$.. ==&gt; Logger[6]
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 6
+<b>jshell&gt; Logger&lt;Integer&gt; a = Logger.make(5)</b>
+<b>jshell&gt; a.printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; a.map(x -&gt; x + 1)</b>
+$.. ==&gt; Logger[6]
+<b>jshell&gt; a.printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make(5).map(x -&gt; x)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).map(x -&gt; x).printlog()</b>
+Value initialized. Value = 5
+Value unchanged. Value = 5
+<b>jshell&gt; Logger.make(5).equals(Logger.make(5).map(x -&gt; x))</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make(5).map(x -&gt; x).equals(Logger.make(5))</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).map(x -&gt; x - 1)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).map(x -&gt; x - 1).printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 6
+Value changed! New value = 5
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).map(x -&gt; x - 1).equals(Logger.make(5))</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make("hello").map(String::length)</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make("hello").map(String::length).printlog()</b>
+Value initialized. Value = hello
+Value changed! New value = 5
+<b>jshell&gt; Function&lt;Object, Boolean&gt; f = x -&gt; x.equals(x)</b>
+<b>jshell&gt; Logger.make("hello").map(f)</b>
+$.. ==&gt; Logger[true]
+<b>jshell&gt; Function&lt;String, Number&gt; g = x -&gt; x.length();</b>
+<b>jshell&gt; Logger&lt;Number&gt; lognum = Logger.make("hello").map(g)</b>
+<b>jshell&gt; lognum</b>
+lognum ==&gt; Logger[5]
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test3.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<h2>Level 4</h2>
+<h2>The <tt>flatMap</tt> method</h2>
+
+<p>We are now ready to write the <tt>flatMap</tt> method that takes a function of the form <tt>Function&lt;? super T, ? extends Logger&lt;? extends U&gt;&gt;</tt>.
+Pay special attention to how the logs are to be combined.
+
+<pre>
+<b>jshell&gt; Logger.make(5).printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make(5).flatMap(x -&gt; Logger.make(x))</b>
+$.. ==&gt; Logger[5]
+<b>jshell&gt; Logger.make(5).flatMap(x -&gt; Logger.make(x)).printlog()</b>
+Value initialized. Value = 5
+<b>jshell&gt; Logger.make(5).flatMap(x -&gt; Logger.make(x)).equals(Logger.make(5))</b>
+$.. ==&gt; true
+<b>jshell&gt; Logger&lt;Integer&gt; a = Logger.make(5).flatMap(x -&gt; Logger.make(x).map(y -&gt; y + 2)).flatMap(y -&gt; Logger.make(y).map(z -&gt; z * 10))</b>
+<b>jshell&gt; Logger&lt;Integer&gt; b = Logger.make(5).flatMap(x -&gt; Logger.make(x).map(y -&gt; y + 2).flatMap(y -&gt; Logger.make(y).map(z -&gt; z * 10)))</b>
+<b>jshell&gt; a.printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 7
+Value changed! New value = 70
+<b>jshell&gt; b.printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 7
+Value changed! New value = 70
+<b>jshell&gt; a.equals(b)</b>
+$.. ==&gt; true
+<b>jshell&gt; Logger&lt;Integer&gt; c = Logger.make(5).map(x -&gt; x + 2).map(x -&gt; x * 10)</b>
+<b>jshell&gt; a.equals(c)</b>
+$.. ==&gt; true
+<b>jshell&gt; Function&lt;Object, Logger&lt;Boolean&gt;&gt; f = x -&gt; Logger.make(x).map(y -&gt; y.equals(y))</b>
+<b>jshell&gt; Logger.make("hello").flatMap(f)</b>
+$.. ==&gt; Logger[true]
+<b>jshell&gt; Function&lt;String, Logger&lt;Number&gt;&gt; g = x -&gt; Logger.make(x).map(y -&gt; y.length())</b>
+<b>jshell&gt; Logger&lt;Number&gt; lognum = Logger.make("hello").flatMap(g)</b>
+<b>jshell&gt; lognum</b>
+lognum ==&gt; Logger[5]
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test4.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+<h2>Level 5</h2>
+
+<p>Let's write some applications using JShell that makes use of our <tt>Logger</tt> so as to observe how the values changes over the course computation.
+Save your methods in the file <tt>level5.jsh</tt>.
+
+<p>Define an <tt>add(Logger&lt;Integer&gt; a, int b)</tt> method that returns the result of <tt>a</tt> added to <tt>b</tt> wrapped in a <tt>Logger</tt> that preserves the log of all operations of <tt>a</tt>, as well as the addition to <tt>b</tt>.
+
+
+<pre>
+<b>jshell&gt; add(Logger.make(5), 6)</b>
+$.. ==&gt; Logger[11]
+<b>jshell&gt; add(Logger.make(5), 6).printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 11
+<b>jshell&gt; add(Logger.make(5).map(x -&gt; x * 2), 6)</b>
+$.. ==&gt; Logger[16]
+<b>jshell&gt; add(Logger.make(5).map(x -&gt; x * 2), 6).printlog()</b>
+Value initialized. Value = 5
+Value changed! New value = 10
+Value changed! New value = 16
+</pre>
+
+<p>The sum of non-negative integers from <tt>0</tt> to <tt>n</tt> (inclusive of both) can be computed <i>recursively</i> using 
+
+<pre>
+int sum(int n) {
+    if (sum == 0) {
+        return 0;
+    } else {
+        return sum(n - 1) + n;
+    }
+}
+</pre>
+
+Redefine the above method such that it returns the result wrapped in a <tt>Logger<Integer></tt>.
+You may find the above <tt>add</tt> method useful.
+
+<pre>
+<b>jshell&gt; sum(0)</b>
+$.. ==&gt; Logger[0]
+<b>jshell&gt; sum(0).printlog()</b>
+Value initialized. Value = 0
+<b>jshell&gt; sum(5)</b>
+$.. ==&gt; Logger[15]
+<b>jshell&gt; sum(5).printlog()</b>
+Value initialized. Value = 0
+Value changed! New value = 1
+Value changed! New value = 3
+Value changed! New value = 6
+Value changed! New value = 10
+Value changed! New value = 15
+</pre>
+
+<p>The <i>Collatz conjecture</i> (or the <tt>3n+1</tt> <i>Conjecture</i>) is a process of generating a sequence of numbers starting with a positive integer that <i>seems to always</i> end with <tt>1</tt>.
+
+<pre>
+int f(int n) {
+   if (n == 1) {
+      return 1;
+   } else if (n % 2 == 0) {
+      return f(n / 2);
+   } else {
+      return f(3 * n + 1);
+   } 
+}
+</pre>
+
+<p>Write the function <tt>f</tt> that takes in <tt>n</tt> and returns a <tt>Logger&lt;Integer&gt;</tt> that wraps around the final value, with a log of the value changes over time.
+You should include a <tt>test</tt> method in the <tt>Logger</tt> that takes in a <tt>Predicate</tt> and returns <tt>true</tt> if the value within the <tt>Logger</tt> satisfies the predicate, and <tt>false</tt> otherwise.
+
+
+<pre>
+<b>jshell&gt; Logger.make(5).test(x -&gt; x == 5)</b>
+$.. ==&gt; true
+<b>jshell&gt; Logger.make(5).map(x -&gt; x + 1).test(x -&gt; x % 2 != 0)</b>
+$.. ==&gt; false
+<b>jshell&gt; Logger.make("hello").test(x -&gt; x.length() == 5)</b>
+$.. ==&gt; true
+<b>jshell&gt; f(16)</b>
+$.. ==&gt; Logger[1]
+<b>jshell&gt; f(16).printlog()</b>
+Value initialized. Value = 16
+Value changed! New value = 8
+Value changed! New value = 4
+Value changed! New value = 2
+Value changed! New value = 1
+<b>jshell&gt; f(10)</b>
+$.. ==&gt; Logger[1]
+<b>jshell&gt; f(10).printlog()</b>
+Value initialized. Value = 10
+Value changed! New value = 5
+Value changed! New value = 15
+Value changed! New value = 16
+Value changed! New value = 8
+Value changed! New value = 4
+Value changed! New value = 2
+Value changed! New value = 1
+
+</pre>
+
+<p>
+Check the format correctness of the output by running the following on the command line:
+<pre>
+$ javac -Xlint:rawtypes *.java
+$ jshell -q your_java_files_in_bottom-up_dependency_order < test5.jsh
+</pre>
+<p>
+Check your styling by issuing the following
+</p>
+<pre>
+$ checkstyle *.java
+</pre>
+
+		</div></div>                          
+					<div class="content-header">
+					<h3>Submission (Practice)</h3>
+			</div>
+			<div id="practiceNotification"></div>
+			<div class="panel">
+				<span class="label" style="vertical-align:top">Your Files:</span>
+				<span class="value-long">
+					<div id="plupload_container">
+						<a id="task_submission" href="javascript:;" class="submitButton">BROWSE</a>
+					</div>
+					<br />
+					<div id="filelist">Your browser doesn't have HTML5 or Flash support.</div>
+					<script type="text/javascript">
+						var uploader;
+						$(document).ready(function() {		
+							uploader = new plupload.Uploader({
+								runtimes: 'html5,flash,html4',
+								browse_button: 'task_submission',
+								container: 'plupload_container',
+								prevent_duplicates: true,
+								url: 'plupload/uploadFiles.php',
+
+								filters: {
+									max_file_size: '31457280', 
+									mime_types: [
+										{title : "Allowed files", extensions : "java,c,cpp,h,py,jar,jsh"}	
+									]
+								},
+
+								init: {
+									PostInit: function () {
+										document.getElementById('filelist').innerHTML = '';
+									},
+
+									FilesAdded: function (up, files) {
+										plupload.each(files, function(file) {
+											document.getElementById('filelist').innerHTML += 
+												'<li class="plupload_file ui-state-default plupload_delete" id="' + file.id + '" class="plupload_file_name">' +  
+													'<div class="plupload_file_status">' +
+														'<div class="plupload_file_action">' + 
+															'<div class="plupload_action_icon ui-icon ui-icon-circle-close" onclick="uploader.removeFile(uploader.getFile(\''+file.id+'\'));"> </div>' + 
+														'</div>' +
+														'<div class="plupload_file_name" title="' + file.name + '">' + 
+															'<span class="plupload_file_name_wrapper">' + file.name + '   (<i>' + plupload.formatSize(file.size) + '</i>) <b></b>' + '</span>' +
+														'</div>' +
+													'</div>' +
+												'</li>';
+										});
+										document.getElementById('filelist').innerHTML = '<ul class="plupload_filelist_content" id="uploader_filelist" unselectable="on">' + document.getElementById('filelist').innerHTML + '</ul>';
+
+									},
+
+									FilesRemoved: function(up, files) {
+										plupload.each(files, function(file) {
+											$('#' + file.id).remove();
+										});
+									},
+
+									FileUploaded: function(up, file, info) {
+										$('#' + file.id).remove();
+									},
+
+									UploadProgress: function(up, file) {
+										$('#' + file.id + ' b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+									},
+
+									UploadComplete: function(up, files) {
+										doTaskGrade();
+									},
+
+									Error: function(up, err) {
+										alert("\nError #" + err.code + ": " + err.message);
+									}
+								}
+							});
+							uploader.init();
+
+
+						});
+
+					</script><br />
+					<p><a href="javascript:uploader.setOption('multipart_params', { 'sess_id': 'g42e9eonr4rj54mub08htvog8clfd78g', 'type': 'task_submission', 'tid': '4968', 'username': 'e0426047', 'uid': '19992' }); javascript:uploader.start();" class="submitButton">SUBMIT</a>
+					(only .java, .c,  .cpp, .h, .jsh, and .py extensions allowed)</p>
+				</span>
+				<br />
+				<span class="label">&nbsp;</span>
+				<span class="value-long" style="font-size: 90%; color: #777;">To submit multiple files, click on the Browse button, then select one or more
+				files. The selected file(s) will be added to the upload queue. You can repeat this step to add more files. Check that you have all the files
+				needed for your submission. Then click on the Submit button to upload your submission.</span>
+			</div>
+        							<input type="hidden" id="tid" name="tid" value="4968" />
+		</div>
+		<!-- end content -->
+</div>
+<!-- end inner -->
+<div id="loading-mask">
+        <p id="loading_mask_loader" class="loader"> <img alt="Loading..." src="images/ajax-loader-tr.gif" /> <br/>
+                Please wait... </p>
+</div>
+<script type="text/javascript">
+$(".star").rating({
+        focus: function(value, link) {
+                var tip = $("#rating_text");
+                tip[0].data = tip[0].data || tip.html(); 
+                tip.html(link.title || "value: " + value);
+        },
+        blur: function(value, link) {
+                var tip = $("#rating_text");
+                $("#rating_text").html(tip[0].data || "");
+        },
+        callback: function(value, link) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_updaterating.php",
+                        data: ({tid:$("#tid").val(), rating:value}),
+                        success: function(html) {
+                                var msg = html.split(";");
+                                $("#rating_text").removeClass().addClass(msg[0]);
+                                $("#rating_text").html(msg[1]);
+                        }
+                });
+        }
+});
+
+function getComments() {
+        $.ajax({
+                type: "POST",
+                url: "task_getcomments.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#commentList").html(html);
+                }
+        });
+}
+
+function doTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#practiceNotification").removeClass().addClass(msg[0]);
+                        $("#practiceNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function doCourseTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val(), course_id:$("#course_id").val(), do_course:1}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#courseNotification").removeClass().addClass(msg[0]);
+                        $("#courseNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function addComment() {
+        $.ajax({
+                type: "POST",
+                url: "task_addcomment.php",
+                data: ({tid:$("#tid").val(), comment:encodeURIComponent($("#comment").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function deleteComment(c) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletecomment.php",
+                data: ({comment_id:c}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function getClassify(){
+                $.ajax({
+                type: "GET",
+                url: "task_classify.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#classifyList").html(html);
+                }
+        });
+}
+
+function getTutorial(){
+        $.ajax({
+                type: "POST",
+                url: "task_gettutorials.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#tutorialList").html(html);
+                }
+        });
+}
+
+function getQueries() {
+        $.ajax({
+                type: "POST",
+                url: "task_getqueries.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#queryList").html(html);
+                }
+        });
+}
+
+function addQuery() {
+        $.ajax({
+                type: "POST",
+                url: "task_addquery.php",
+                data: ({tid:$("#tid").val(), contest_id:$("#contest_id").val(), query:encodeURIComponent($("#query").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function deleteQuery(q) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletequery.php",
+                data: ({query_id:q}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function addTag() {
+        $.ajax({
+                type: "POST",
+                url: "tag_add.php",
+                data: ({tid:$("#tid").val(), tags:$("#tagwords").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#tagNotification").removeClass().addClass(msg[0]);
+                        $("#tagNotification").html(msg[1]);
+                        
+                        getClassify();
+                }
+        });
+}
+
+
+$(document).ready(function() {
+        getComments();
+        getQueries();
+        getClassify();
+        getTutorial();
+        //getCloud();
+});
+
+$(document).everyTime(60000, function(i) {
+        if ($("#tid").val() != "" && $("#tid").val() != null) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcontest.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#contest_submit").html("");
+                                }
+                        }
+                });
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcourse.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#course_submit").html("");
+                                }
+                        }
+                });
+        }
+}, 0);
+
+$('#loading_mask_loader')
+        .hide()  // hide it initially
+        .ajaxStart(function() {
+                $(this).show();
+        })
+        .ajaxStop(function() {
+                $(this).hide();
+        });
+        
+</script>
+</body>
+</html>
+</div> <!-- end outer -->
+
+</div> <!-- end container -->
+
+<!-- START NUS-Footer --> 
+<div id="nusfooter" class="nusbody">
+<div id="nusfooter_ml"><div id="nusfooter_mr">
+<div id="nusfooter_tc"><div id="nusfooter_tl"><div id="nusfooter_tr">
+<div id="nusfooter_bc"><div id="nusfooter_bl"><div id="nusfooter_br">
+<div class="inner"><div class="left"><p>&copy; Copyright 2009-2020 National University of Singapore. All Rights Reserved.</p>  
+<p class="nusfooterlinks">
+<a href="http://www.nus.edu.sg/terms.php">Terms of Use</a> |
+<a href="http://www.nus.edu.sg/policy.php">Privacy</a> |
+<a href="http://www.nus.edu.sg/nondiscrim.php">Non-discrimination</a></p> 
+</div>    
+<div class="right">
+<a href="https://mysoc.nus.edu.sg/">MySoC</a> |
+<a href="https://docs.comp.nus.edu.sg/cf/">Computing Facilities</a> |
+<a href="http://www.nus.edu.sg/search/">Search</a> |
+<a href="http://www.nus.edu.sg/campusmap/">Campus Map</a>
+<p>School of Computing, National University of Singapore</p>
+</div>    
+<div style="clear: both;"> </div>
+</div>
+</div></div></div>
+</div></div></div>
+</div></div>
+</div>
+<!-- END NUS-Footer --></body>
+</html>
