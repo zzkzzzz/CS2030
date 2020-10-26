@@ -3,7 +3,6 @@ System.out.println("op called");
 return x + 1;
 }
 LazyList<Integer> list = LazyList.generate(20, 0, op)
-list.get(0)
 list.get(5)
 list.indexOf(2)
 list.indexOf(10)

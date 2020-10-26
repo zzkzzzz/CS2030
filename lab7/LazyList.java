@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
 class LazyList<T extends Comparable<T>> {
-    private List<Lazy<T>> list;
+    private final List<Lazy<T>> list;
 
     private LazyList(List<Lazy<T>> list) {
         this.list = list;
@@ -17,12 +17,12 @@ class LazyList<T extends Comparable<T>> {
     }
 
     public T get(int i) {
-        System.out.println(list);
+        for (int j = 0; j < i; j++)
+            this.list.get(j).get();
         return this.list.get(i).get();
     }
 
     public int indexOf(T v) {
-        System.out.println(list);
         return this.list.indexOf(Lazy.of(v));
     }
 

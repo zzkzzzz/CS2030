@@ -21,7 +21,8 @@ class Lazy<T extends Comparable<T>> {
 
     public static <T extends Comparable<T>> Lazy<T> of(Supplier<T> supplier) {
         try {
-            supplier.get();
+            Optional<Supplier<T>> check = Optional.of(supplier);
+            check.orElseThrow();
             return new Lazy<T>(supplier);
         } catch (Exception e) {
             throw new NoSuchElementException("No value present");
