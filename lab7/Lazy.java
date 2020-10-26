@@ -16,11 +16,13 @@ class Lazy<T extends Comparable<T>> {
     }
 
     public static <T extends Comparable<T>> Lazy<T> of(T v) {
-        return new Lazy<T>(() -> v);
+        // convert the value to a supplier
+        return new Lazy<>(() -> v);
     }
 
     public static <T extends Comparable<T>> Lazy<T> of(Supplier<T> supplier) {
         try {
+            // check null
             Optional<Supplier<T>> check = Optional.of(supplier);
             check.orElseThrow();
             return new Lazy<T>(supplier);
@@ -30,7 +32,9 @@ class Lazy<T extends Comparable<T>> {
     }
 
     public T get() {
-        T v = this.value.orElseGet(supplier);
+        // if the value is available， get the value
+        // if not, get the result of the supplier
+        T v = this.value.orElseGet(supplier) 
         this.value = Optional.of(v);
         return v;
     }
@@ -44,8 +48,14 @@ class Lazy<T extends Comparable<T>> {
         return f.apply(this.value.orElseGet(supplier));
     }
 
+    /**
+     * Combine this Lazy with other Lazy
+     */
     public <U extends Comparable<U>, R extends Comparable<R>> Lazy<R> combine(Lazy<U> other,
             BiFunction<T, U, R> combiner) {
+        // flatmap unwrap the this to type <T> =>x
+        // map unwrap the other to type <U> =>y
+        // combine x and y
         return this.flatMap(x -> other.map(y -> combiner.apply(x, y)));
     }
 
@@ -57,6 +67,7 @@ class Lazy<T extends Comparable<T>> {
         return this.flatMap(x -> other.map(y -> x.compareTo(y)));
     }
 
+    // eager operation that cause the values to be evaluated
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -70,6 +81,7 @@ class Lazy<T extends Comparable<T>> {
 
     @Override
     public String toString() {
+        // map the value to String first then check available or not
         return this.value.map(x -> x + "").orElseGet(() -> "?");
     }
 }

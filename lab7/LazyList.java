@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
@@ -12,6 +10,11 @@ class LazyList<T extends Comparable<T>> {
         this.list = list;
     }
 
+    /********
+     * Generate a lazy list as
+     * [Lazy.of(seed),Lazy.of(seed).map(f),Lazy.of(seed).map(f).map(f)....] up to n
+     * elements. The values will not be evaluated.
+     */
     static <T extends Comparable<T>> LazyList<T> generate(int n, T seed, UnaryOperator<T> f) {
         return new LazyList<>(Stream.iterate(Lazy.of(seed), x -> x.map(f)).limit(n).collect(Collectors.toList()));
     }
