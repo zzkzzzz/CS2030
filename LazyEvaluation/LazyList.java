@@ -96,16 +96,37 @@ public class LazyList<T> {
         return this.amIEmpty;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        else if (obj instanceof LazyList) {
+            LazyList<?> ll = (LazyList<?>) obj;
+            return this.hasSameContent(ll);
+        }
+        else
+            return false;
+    }
+                          
+    public boolean hasSameContent(LazyList<?> other) {
+        if (this.isEmpty() && other.isEmpty())
+            return true;
+        else if (!this.isEmpty() && !other.isEmpty())
+            return this.head().equals(other.head()) &&
+                this.tail().hasSameContent(other.tail());
+        else
+            return false;
+    }
+
+    
     /** **************
         Return a human-readable string of this list.
     */
     @Override
     public String toString() {
-        Scanner sc = new Scanner(this.tail.toString()).useDelimiter("Lambda");
-        String s1 = sc.next();
-        String s2 = sc.next();        
-        return String.format("head: %s\ntail: thunk%s",
-                             this.head.toString(),s2);
+        if (this.isEmpty())
+            return "**empty**";
+        return String.format("head: %s, tail: thunk!%s",
+                             this.head.toString(), this.tail.toString());
     }
 
     /** **************
@@ -159,11 +180,12 @@ public class LazyList<T> {
         LL flattens them all, ie. removes nested lists.
     */
     public <R> LazyList<R> flatmap(Function<T, LazyList<R>> f) {
-        // Replace the next line with your own code.
+        if (this.isEmpty())
             return LazyList.makeEmpty();
-    
+        else
+            return f.apply(this.head())
+                .concat(this.tail().flatmap(f));
     }
-
     
     /** **************
         Return a new LL whose elements (from this list)
@@ -191,6 +213,19 @@ public class LazyList<T> {
                           this.tail().limit(maxSize - 1));
     }
 
+    /** **************
+        Return a new LL whose elements are the combination, element-wise,
+        of this and other list. The combination is specified by the 
+        BinaryOperator binOp, and thus could be addition, multiplication, etc.
+    */
+    public LazyList<T> elementWiseCombine(LazyList<T> other,
+                                  BinaryOperator<T> binOp) {
+        if (this.isEmpty() || other.isEmpty())
+            return LazyList.makeEmpty();
+        else
+            return LLmake(binOp.apply(this.head(), other.head()),
+                          this.tail().elementWiseCombine(other.tail(), binOp));
+    }
 
     /** **************
         Return the element at position given by idx.
@@ -228,28 +263,32 @@ public class LazyList<T> {
     }
 
     /** **************
-        Return a new list containing the same elements as this list,
+        Return a new list whose elements are those from this list, 
         but in reverse order.
     */
     public LazyList<T> reverse() {
-        // Replace the next line with your own code.
-        return this;
+        if (this.isEmpty())
+            return this;
+        else
+            return this.tail()
+                .reverse()
+                .concat(LLmake(this.head(),
+                               LazyList.makeEmpty()));
     }
 
     /** **************
-        General way to combine 2 LazyLists. This could be used to create
-        the cartesian product of 2 lists, for example.
+        Combine this LazyList with other, using generic combiner.
+        This may be used to generate cartesian product of the 2 lists.
     */
     public <U,R> LazyList<R> combine(LazyList<U> other, BiFunction<T,U,R> combiner) {
         return this.flatmap(x ->
                             other.map(y -> combiner.apply(x,y)));
     }
 
+    
     /** **************
-        Just like map, this will apply eat on every element in the list,
-        but eat is a Consumer, ie returns void. Typically used to print.
-        Example: if Lyst is a list of lists, then Lyst.forEach(LazyList::print)
-        will print each nested list on a separate line.
+        Invoke the consumer eat on every element in this list.
+        This is an eager operation: the entire list will be thawed.
     */
     public void forEach(Consumer<T> eat) {
         if (this.isEmpty())
@@ -259,7 +298,19 @@ public class LazyList<T> {
             this.tail().forEach(eat);
         }
     }
-                                     
+
+    /** **************
+        Aggregate all the elements in this list, using the accumulator and identity.
+        This is an eager operation: the entire list will be thawed.
+    */
+    public T reduce(T identity, BinaryOperator<T> accumulator) {
+        if (this.isEmpty())
+            return identity;
+        else
+            return accumulator.apply(this.head(),
+                                     this.tail().reduce(identity,
+                                                        accumulator));
+    }
 }
 
 

@@ -1,3 +1,5 @@
+import java.util.function.Supplier;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,16 @@ public class Primes {
         printPrime(k, prime);
         printCounter();
     }
+
+    static void findKthPrimeFromBackLL(int a, int b, int k){
+        int prime = LazyList.intRange(a, b)
+            .filter(predInstrument(Primes::isPrime))
+            .reverse()
+            .get(k-1);
+
+        printPrime(k, prime);
+        printCounter();
+    }
     
     /** ***************
         Finds the kth prime in a given range by:
@@ -48,6 +60,17 @@ public class Primes {
         printPrime(k, prime);
         printCounter();
     }
+    static void findKthPrimeFromBackArr(int a, int b, int k) {
+        var primesArrayList = listFilter(predInstrument(Primes::isPrime),
+                                         intRangeArr(a, b));
+
+        int prime = primesArrayList.get(primesArrayList.size()-k);
+
+        printPrime(k, prime);
+        printCounter();
+    }
+
+
 
     /** *************
        Static counter to count the number of times a predicate
@@ -107,6 +130,7 @@ public class Primes {
                      return p.test(x);};
     }
     
+    
 
     /** *************
         Various methods to generate an ArrayList of primes.
@@ -150,9 +174,14 @@ public class Primes {
         var inputs = parse(args);
         if (inputs[3] == 0)
             findKthPrimeArr(inputs[0], inputs[1], inputs[2]);
-
         else if (inputs[3] == 1)
             findKthPrimeLL(inputs[0], inputs[1], inputs[2]);
+
+        else if (inputs[3] == 2)
+            findKthPrimeFromBackArr(inputs[0], inputs[1], inputs[2]);
+        
+        else if (inputs[3] == 3)
+            findKthPrimeFromBackLL(inputs[0], inputs[1], inputs[2]);
 
         else
             System.out.println("Wrong value for <w>!");
