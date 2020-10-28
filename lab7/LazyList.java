@@ -20,8 +20,6 @@ class LazyList<T extends Comparable<T>> {
     }
 
     public T get(int i) {
-        for (int j = 0; j < i; j++)
-            this.list.get(j).get();
         return this.list.get(i).get();
     }
 

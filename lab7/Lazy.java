@@ -34,18 +34,18 @@ class Lazy<T extends Comparable<T>> {
     public T get() {
         // if the value is available， get the value
         // if not, get the result of the supplier
-        T v = this.value.orElseGet(supplier) 
+        T v = this.value.orElseGet(supplier);
         this.value = Optional.of(v);
         return v;
     }
 
     public <R extends Comparable<R>> Lazy<R> map(Function<T, R> f) {
-        Supplier<R> newSupplier = () -> f.apply(this.value.orElseGet(supplier));
+        Supplier<R> newSupplier = () -> f.apply(this.get());
         return new Lazy<>(newSupplier);
     }
 
     public <R extends Comparable<R>> Lazy<R> flatMap(Function<T, Lazy<R>> f) {
-        return f.apply(this.value.orElseGet(supplier));
+        return f.apply(this.get());
     }
 
     /**
