@@ -33,7 +33,7 @@ public class ArriveEvent extends Event {
         // server to be serverd
         for (int i = 0; i < newServerList.size(); i++) {
             Server server = newServerList.get(i);
-            if (server.getIsAvailable()) {
+            if (server.isAvailable()) {
                 Server newServer = server.goBusyNoWait(arrivesTime + 1);
                 newServerList.set(i, newServer);
                 return new ServeEvent(this.getCustomer(), newServerList, i);

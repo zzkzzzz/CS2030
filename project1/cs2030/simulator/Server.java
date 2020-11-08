@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 public class Server {
 
@@ -23,6 +23,10 @@ public class Server {
         this.nextAvailableTime = nextAvaiTime;
     }
 
+    public Server next() {
+        return new Server(this.getIdentifier() + 1, true, false, 0);
+    }
+
     public double getNextAvailableTime() {
         return nextAvailableTime;
     }
@@ -31,7 +35,7 @@ public class Server {
         return hasWaitingCustomer;
     }
 
-    public boolean getIsAvailable() {
+    public boolean isAvailable() {
         return isAvailable;
     }
 
