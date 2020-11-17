@@ -41,11 +41,11 @@ class Lazy<T extends Comparable<T>> {
 
     public <R extends Comparable<R>> Lazy<R> map(Function<T, R> f) {
         Supplier<R> newSupplier = () -> f.apply(this.get());
-        return new Lazy<>(newSupplier);
+        return Lazy.of(newSupplier);
     }
 
     public <R extends Comparable<R>> Lazy<R> flatMap(Function<T, Lazy<R>> f) {
-        return f.apply(this.get());
+        return new Lazy<R>(() -> f.apply(this.get()).get());
     }
 
     /**
