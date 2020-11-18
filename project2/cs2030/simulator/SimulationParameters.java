@@ -8,13 +8,15 @@ package cs2030.simulator;
 // CodeCrunch not allow to declare public static final attribute
 public class SimulationParameters {
     public static final double SERVICE_TIME = 1.0;
-    // ARRIVE → SERVE → DONE
-    // ARRIVE → WAIT → SERVE → DONE
+    // ARRIVE → SERVE → DONE -> REST -> BACK
+    // ARRIVE → WAIT → SERVE → DONE -> REST -> BACK
     // ARRIVE → LEAVE
     // Priority 0: Arrive
     // Priority 1: Wait
     // Priority 2: Serve
     // Priority 3: Done, Leave
+    // Priority 4: Rest
+    // Priority 5: Back
     public static final int ARRIVE_EVENT_PRIORITY = 0;
     public static final int WAIT_EVENT_PRIORITY = 1;
     public static final int SERVE_EVENT_PRIORITY = 2;

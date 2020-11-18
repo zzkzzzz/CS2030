@@ -19,6 +19,7 @@ public class EventComparator implements Comparator<Event> {
      */
     @Override
     public int compare(Event e1, Event e2) {
+
         int id1 = e1.getCustomer().getId();
         int id2 = e2.getCustomer().getId();
         double time1 = e1.getStartTime();
@@ -27,7 +28,7 @@ public class EventComparator implements Comparator<Event> {
         // if two events are from same customer
         // then sort base on the Event Priority
         if (Integer.compare(id1, id2) == 0) {
-            return 1;
+            return e1.getPriority() - e2.getPriority();
         } else {
             // else if two events are from different customers
             if (Math.abs(time1 - time2) < 0.000001) {

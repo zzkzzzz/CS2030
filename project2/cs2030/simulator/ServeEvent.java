@@ -1,27 +1,24 @@
 package cs2030.simulator;
 
-import java.util.List;
-import java.util.ArrayList;
-
 public class ServeEvent extends Event {
     /**
-     * Serve Event Donstructor.
+     * Serve Event Constructor.
      *
-     * @param customer        the customer object
-     * @param serverList      the list of servers
-     * @param currentServerId the Id of the server who serve the customer
+     * @param customer      the customer object
+     * @param currentServer the current server
+     * @param startTime     the start time of serve event
      */
-
     ServeEvent(Customer customer, Server currentServer, double startTime) {
-        super(customer, currentServer, startTime,
-                x -> new Pair<Shop, Event>(x.replace(currentServer), currentServer.done(customer)));
+        super(2, customer, currentServer, startTime, 
+            x -> new Pair<Shop, Event>(x.replace(currentServer), 
+            new DoneEvent(customer, currentServer.goRest(customer))));
     }
 
     @Override
     public String toString() {
         double startTime = this.getStartTime();
-        int customerId = this.getCustomer().getId();
-        int serverId = this.getCurrentServer().getIdentifier();
-        return String.format("%.3f %d served by %d", startTime, customerId, serverId);
+        String id = this.getCustomer().getType();
+        String name = this.getCurrentServer().name();
+        return String.format("%.3f %s served by %s", startTime, id, name);
     }
 }
