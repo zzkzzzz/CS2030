@@ -7,4 +7,4 @@
 *.class
 **/*.class
 
-notes.md
+test/
