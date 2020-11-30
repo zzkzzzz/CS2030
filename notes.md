@@ -7,6 +7,33 @@
 - Inheritance
 - Polymorphism
 
+- Java memory model
+  - Stack
+    - LIFO stack for storing activation records of method calls
+    - local primitive variables and references to object (i.e. variable declared in method) are stored in stack.
+  - Heap
+    - for storing Java objects upon invoking `new`
+    - garbage collection is done here
+  - Non-heap (PermGen)->(Metaspace)
+    - It’s a special heap space which is separate from the main Java heap where JVM keeps track of metadata of the classes which have been loaded. In Java 8, PermGen has been renamed to Metaspace. The key difference between PermGen and Metaspace is this: while PermGen is part of Java Heap (Maximum size configured by -Xmx option), Metaspace is NOT part of Heap. Rather Metaspace is part of Native Memory (process memory) which is only limited by the Host Operating System.
+    - It is created at the JVM startup and stores per-class structures such as runtime constant pool, field and method data, and the code for methods and constructors, as well as interned Strings.
+
+## SOLID principle
+
+- Single Responsiblity Principle
+  - a class should only have one responsibility. Furthermore, it should only have one reason to change.
+- Open-Closed Principle
+  - classes should be open for extension but closed for modification
+  - "Open to extension" means that you should design your classes so that new functionality can be added as new requirements are generated.
+  - "Closed for modification" means that once you have developed a class you should never modify it, except to correct bugs.
+- Liskov Substitution Principle
+  - if class A is a subtype of class B, then we should be able to replace B with A without disrupting the behavior of our program.
+  - All subclasses must, therefore, operate in the same manner as their base classes.
+- Interface Segregation Principle
+  - larger interfaces should be split into smaller ones. By doing so, we can ensure that implementing classes only need to be concerned about the methods that are of interest to them.
+- Dependency Inversion Principle
+  - refers to the decoupling of software modules. This way, instead of high-level modules depending on low-level modules, both will depend on abstractions. 
+
 ## Abstraction and Encapsulation
 
 ### Abstraction
@@ -88,6 +115,10 @@
   - dynamic Binding/late binding
     - happens at *runtime*
     - *Method Overriding* is dynamic bindind which is determined at runtime by the type of object thus late binding happens.
+    - The compiler doesn’t decide the method to be called, the method to invoke is known only during runtime.
+    - example:
+      - `Animal animal = new Animal();`
+      - `Animal dogAnimal = new Dog();`
   
   - Example: `X xy = new Y();`
     - Runtime(Dynamic) type is `Y`
@@ -121,11 +152,37 @@
 - Generics Method
 - Generics work only with Reference Types. Cannot use primitive data types like int,char..
 
+- Variance of Types
+  - Covariance: ? extends MyClass,
+  - Contravariance: ? super MyClass and
+  - Invariance/non-variance: MyClass
+
+- PECS -> Producer extends and Consumer super
+  - reference: <https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super>
+  - Consumer
+    - consumer (which takes some objects and consume them, such as the add method), we expect it to take objects of type no more than(superclasses) the type T we specified, because the process of consuming needs possibly any member(variables, methods etc.) of the type it wants, and we want to ensure that type T satisfy all the members the consumer requires.
+    - Use a super wildcard when you only put values into a structure.
+    - You want to add things to the collection.
+      - Then the list is a consumer, so you should use a Collection<? super Thing>.
+      - The reasoning here is that unlike Collection<? extends Thing>, Collection<? super Thing> can always hold a Thing no matter what the actual parameterized type is. Here you don't care what is already in the list as long as it will allow a Thing to be added; this is what ? super Thing guarantees.
+    - example:
+      - Consumer<T> andThen(Consumer<? super T> after)
+        - the reason why we need this `? super T` is that: when we are combining two Consumers using the method andThen, suppose that the former Consumer takes an object of type T, we expect the later to take a object of type no more than T so it would not try to *access any member that T doesn't have*.
+        - Therefore, rather than simply writing `Consumer<T>` after but `Consumer<? super T>` after, we allow the former consumer (of type T) to be combined with a consumer that takes an object not exactly of type T, but maybe superclass of T, by the convenience of Contravariance.
+
+  - Producer
+    - producer, which produces objects for us (like the get method), has to supply objects of type no less than the specified type T so that we can access any member that T has on the object produced.
+    - Use an extends wildcard when you only get values out of a structure.
+    - You want to go through the collection and do things with each item.
+      - Then the list is a producer, so you should use a Collection<? extends Thing>.
+      - The reasoning is that a Collection<? extends Thing> could hold any subtype of Thing, and thus each element will behave as a Thing when you perform your operation. (You actually cannot add anything to a Collection<? extends Thing>, because you cannot know at runtime which specific subtype of Thing the collection holds.)
+
 - Wildcard
   - Upper-bounded wildcard: ? extends Burger
     - any type that is the sub class of Burger, including itself
   - Lower-bounded wildcard: ? super Burger
     - any type that is the super class of Burger, including itself
+
 - Type Erasure
   - Complie time
   - Type erasure can be explained as the process of enforcing type constraints only at compile time and discarding the element type information at runtime.
@@ -157,6 +214,14 @@
 ## Functional Interfaces
 
 - It is an interface that has a single abstract method (SAM), which must be overridden by the user.
+
+- *Pure function*
+  - Have no side effects
+    - cant throw exceptions
+    - cant perform I/O (print)
+  - Do not mutate data
+  - Always return a value
+  - Given the same input, will always return the same output
 
 - Examples
   - Comparator<T>: int compare(T x, T y)
@@ -224,20 +289,40 @@
 
         System.out.println(listOfIntegers);  // [5, 10, 15, 20]
         System.out.println(listOfIntegers2); // [5, 10, 15, 20]
-    java```
+    ```
 
 - Functor and Monad
-  - a parameterised type such as Optional<String> has a type parameter: String and a wrapper type: Optional. In this case we say that “a String type is wrapped by an Optional context”.
-  - Functor provide a constructor and a `map` method
-    - exmaples:
-      - Optional<T>
-      - Stream<T>
-      - ArrayList<T>
-      - Function<T,U>
-  - Monad provide a constructor and a `faltmap` method
-    - reference
-      - <https://medium.com/@afcastano/monads-for-java-developers-part-1-the-optional-monad-aa6e797b8a6e>
-      - <https://medium.com/@afcastano/monads-for-java-developers-part-2-the-result-and-log-monads-a9ecc0f231bb>
+  - Functor
+    - a parameterised type such as Optional<String> has a type parameter: String and a wrapper type: Optional. In this case we say that “a String type is wrapped by an Optional context”.
+    - Functor laws:
+      - A functor is a generic type that contains a thing (aka payload), and provides a constructor (make), and a map method that transforms the payload. These must satisfy 2 laws:
+        - Identity: make(t).map(x -> x).equals(make(t))
+        - Associativity: make(t).map(f).map(g).equals( make(t).map(f.andThen.g))
+    - Functor provide a constructor and a `map` method
+      - exmaples:
+        - Optional<T>
+        - Stream<T>
+        - ArrayList<T>
+        - Function<T,U>
+  - Monad
+    - a monad is a parameterised type such as Optional and Stream
+      - Implements flatMap (a.k.a. bind) and unit (a.k.a. identity, return, Optional.of(), etc…).
+      - Follows three laws: Left identity, Right identity and associativity
+    - Monad provide a constructor and a `faltmap` method
+      - Monad laws
+        - Left identity
+          - If we create a new monad and bind it to the function, the result should be the same as applying the function to the value:
+          - `Optional.of(value).flatMap(F).equals(F.apply(value))`
+        - Right identity
+          - The result of binding a unit function to a monad should be the same as the creation of a new monad:
+          - `Optional.of(value).flatMap(Optional::of).equals(Optional.of(value))`
+        - Associativity
+          - in the chain of function applications, it should not matter how functions are nested:
+            - `Optional<B> leftSide= Optional.of(value).flatMap(F).flatMap(G)`
+            - `Optional<B> rightSide= Optional.of(value).flatMap(F.apply(value).flatMap(G))`
+            - `leftSide.equals(rightSide)`
+Optional<Integer> leftSide= Optional.of(1).flatMap(x->Optional.of(x+1)).flatMap(x->Optional.of(x*x))
+Optional<Integer> rightSide= Optional.of(1).flatMap(x->Optional.of(x+1).flatMap(y->Optional.of(y*y)))
     - exmaples:
       - Stream<T>
       - Optional<T>
@@ -245,6 +330,9 @@
       - unwrapping the parameter from the Optional context or some other parametrised types
       - it will unwrap the parameter for us and no need to check it present or not
       - if the Optional is empty, the result will return Optional.empty
+    - reference
+      - <https://medium.com/@afcastano/monads-for-java-developers-part-1-the-optional-monad-aa6e797b8a6e>
+      - <https://medium.com/@afcastano/monads-for-java-developers-part-2-the-result-and-log-monads-a9ecc0f231bb>
 
     ```java
     public static <T, U, R> Optional<R> flatMap2(Optional<T> opt1, Optional<U> opt2,
@@ -257,7 +345,7 @@
       return flatMap2(opt1, opt2, (param1, param2) -> Optional.of(param1 + param2));
     }
 
-    java```
+    ```
 
 ## Stream
 
@@ -324,6 +412,9 @@
     - `CompletableFuture<Matrix> future = CompletableFuture.supplyAsync(() -> m1.multiply(m2));`
     - `future.thenAccept(System.out::println);`
     - OR `CompletableFuture.supplyAsync(() -> m1.multiply(m2)).thenAccept(System.out::println);`
+  - static methods runAsync and supplyAsync creates CompletableFuture instances of out Runnable and Suppliers respectively
+    - `CompletableFuture<Void> runAsync​(Runnable runnable)`
+    - `<U> CompletableFuture<U> supplyAsync​(Supplier<U> supplier)`
   - Waiting for completion
     - If you want your code to block until a CompletableFuture completes, you can call join().
       - `m = future.join();`
@@ -339,3 +430,10 @@
     - CompletableFuture is a monad too! The thenCompose method is analougous to the flatMap method of Stream and Optional.
       - This also means that CompletableFuture satisfies the monad laws, one of which is that there is a method to wrap a value around with a CompletableFuture. We call this the of method in the context of Stream and Optional, but in CompletableFuture, it is called completedFuture. This method creates a CompletableFuture that is completed.
         - `CompletableFuture.completedFuture(0);`  
+
+## Others
+
+### Java Integer Cache
+
+- reference: <https://javapapers.com/java/java-integer-cache> <https://www.javamadesoeasy.com/2015/09/java-caches-integer-objects-formed-from.html>
+
