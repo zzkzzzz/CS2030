@@ -426,6 +426,11 @@ Optional<Integer> rightSide= Optional.of(1).flatMap(x->Optional.of(x+1).flatMap(
     - Functor
       - `<U> CompletableFuture<U> thenApply(Function<? super T,? extends U> func)`
       - `<U,​V> CompletableFuture<V> thenCombine​(CompletableFuture<? extends U> other, BiFunction<? super T,​? super U,​? extends V> fn)`
+        - execute multiple tasks at the same time(parallelly)
+        - After both processes of two CompletableFutures are done, it combines the two and returns one CompletableFuture.
+      - `<U> CompletionStage<U> thenCompose​(Function<? super T,​? extends CompletionStage<U>> fn)`
+        - chain two Futures sequentially.
+        - When the result of the first CompletableFuture is returned, the result is transmitted to the second CompletableFuture and the jobs are processed sequentially.
       - etc
     - CompletableFuture is a monad too! The thenCompose method is analougous to the flatMap method of Stream and Optional.
       - This also means that CompletableFuture satisfies the monad laws, one of which is that there is a method to wrap a value around with a CompletableFuture. We call this the of method in the context of Stream and Optional, but in CompletableFuture, it is called completedFuture. This method creates a CompletableFuture that is completed.
